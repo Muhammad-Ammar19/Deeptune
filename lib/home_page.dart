@@ -199,11 +199,11 @@ class CustomDrawer extends StatelessWidget {
                 
               },
               title: const Text(
-                "Bluetooth",
+                "Choose Language",
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),                 // Bluetooth 
               ),
               leading: const Icon(
-                Icons.bluetooth,
+               Icons.language_rounded,
                 size: 15,
               ),
               trailing: const Icon(
@@ -283,7 +283,7 @@ class CustomDrawer extends StatelessWidget {
                     title: 'Deeptune From ryze.',
                     middleText:
                         'Deeptune is your ultimate music player for a seamless listening experience. Enjoy customizable playback, playlist management, offline mode, and cross-platform sync.',
-                   
+                   radius: 10,
                   );
               },
               title: const Text(
