@@ -22,7 +22,7 @@ class SearchList extends StatelessWidget {
     
    
       ),
-      bottomNavigationBar: const BottomMusicPlayer(),
+      bottomNavigationBar:  const BottomMusicPlayer(),
       body: SafeArea(
         child: Column(
           children: [

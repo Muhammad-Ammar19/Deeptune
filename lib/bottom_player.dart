@@ -5,18 +5,20 @@ import 'package:get/get.dart';
 
 
 class BottomMusicPlayer extends StatelessWidget {
-  const BottomMusicPlayer({super.key});
+  
+    const BottomMusicPlayer({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<PlayerController>(); // Access PlayerController
-
+    var controller = Get.find<PlayerController>();                               // Access PlayerController
+  
     return Obx(() {
       var currentSong = controller.selectedSong.value;
       var isPlaying = controller.isPlaying.value;
 
       if (currentSong == null) {
-        return const Card(); // Placeholder widget when no song is selected
+        return const Card();                                                     // Placeholder widget when no song is selected
       }
 
       return GestureDetector( onTap: () {
@@ -29,7 +31,7 @@ class BottomMusicPlayer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: [ 
                 // Song Info and Controls
                 Expanded(
                   child: Column(
@@ -65,7 +67,6 @@ class BottomMusicPlayer extends StatelessWidget {
                     }
                   },
                 ),
-             
               ],
             ),
           ),
