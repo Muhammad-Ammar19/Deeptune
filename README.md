@@ -1,6 +1,6 @@
 # deeptune_musicplayer
 
-A new Flutter project.
+A new Flutter project. Named Deeptunr
 
 ## Getting Started
 
