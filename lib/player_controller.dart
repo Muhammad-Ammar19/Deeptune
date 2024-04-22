@@ -19,7 +19,7 @@ class PlayerController extends GetxController {
   var position =''.obs;
  final searchResults = <SongModel>[].obs;
 
- 
+
 
 
 
@@ -36,7 +36,9 @@ class PlayerController extends GetxController {
      
   }
 
- 
+
+
+
 
 
 
