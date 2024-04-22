@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -19,7 +20,7 @@ class PlayerController extends GetxController {
   var position =''.obs;
  final searchResults = <SongModel>[].obs;
 
-
+ //final dbHelper = DatabaseHelper.instance;
 
 
 
@@ -32,10 +33,36 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
      checkPermission();
-     initAudioPlayerListeners();
-     
+     initAudioPlayerListeners(); 
+   //    _initializeDatabase(); 
   }
 
+
+
+// void _initializeDatabase() async {
+//   await dbHelper.database; // Ensure database initialization
+// }
+
+ 
+// void addToFavorites(SongModel song) async {
+//     final favoriteSong = FavoriteSong(
+//       id: song.id,
+//       title: song.title,
+//       artist: song.artist!,
+//       uri: song.uri!,
+//     );
+//     await dbHelper.insertFavorite(favoriteSong);
+//   }
+
+
+// Future<List<FavoriteSong>> getFavorites() async {
+//     return await dbHelper.getFavorites();
+//   }
+
+
+// Future<void> removeFromFavorites(int id) async {
+//     await dbHelper.deleteFavorite(id);
+//   }
 
 
 
@@ -224,7 +251,7 @@ changeDurationToSeconds(seconds){
     super.onClose();
   }
 
- 
+  
 
  checkPermission() async {
     var perm = await Permission.storage.request();
@@ -232,4 +259,5 @@ changeDurationToSeconds(seconds){
     } else {
       checkPermission();
     }
-  }}
+  }
+}
