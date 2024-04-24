@@ -1,7 +1,11 @@
+
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+
+
 
 
 class PlayerController extends GetxController {
@@ -20,6 +24,7 @@ class PlayerController extends GetxController {
 
 
 
+
  void updateSelectedSong(SongModel data) {    // song changed to data
     selectedSong.value = data;
   }
@@ -29,8 +34,13 @@ class PlayerController extends GetxController {
     super.onInit();
      checkPermission();
      initAudioPlayerListeners(); 
-   
+ 
   }
+
+
+
+
+
 
 
 void initAudioPlayerListeners() {
@@ -65,11 +75,7 @@ void initAudioPlayerListeners() {
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
       audioPlayer.play();
       isPlaying(true);
-    
-    
-    // ignore: empty_catches
-    } on Exception {
-    }
+    } on Exception catch (e){ e;}
   }
 
  void playNextSong() {
@@ -106,12 +112,8 @@ void initAudioPlayerListeners() {
     isPlaying.value = true;
   }
   
-
-
-
-
-   // Search function to filter songs based on a search query
-  Future<List<SongModel>> searchSongs(String query) async {
+  // Search function to filter songs based on a search query
+Future<List<SongModel>> searchSongs(String query) async {
     try {
       var songs = await audioquery.querySongs(
         sortType: SongSortType.TITLE,
@@ -121,8 +123,6 @@ void initAudioPlayerListeners() {
       if (query.isEmpty) {
         return songs;
       }
-
-
 
 // Filter songs based on the search query (case-insensitive)
       var filteredSongs = songs.where((song) {
@@ -140,10 +140,6 @@ void initAudioPlayerListeners() {
   void updateSearchResults(List<SongModel> results) {
     searchResults.assignAll(results);
   }
-
-
-
-
 
   
 // For starting and ending time duration 
@@ -225,4 +221,8 @@ changeDurationToSeconds(seconds){
       checkPermission();
     }
   }
+
+
 }
+
+
