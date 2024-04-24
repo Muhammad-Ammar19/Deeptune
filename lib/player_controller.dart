@@ -37,9 +37,6 @@ class PlayerController extends GetxController {
   }
 
 
-
-
-
 void initAudioPlayerListeners() {
     audioPlayer.durationStream.listen((d) {
       if (d != null) {
