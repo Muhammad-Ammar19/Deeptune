@@ -70,6 +70,7 @@ void initAudioPlayerListeners() {
       audioPlayer.play();
       isPlaying(true);
     
+    
     // ignore: empty_catches
     } on Exception {
     }
