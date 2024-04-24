@@ -20,7 +20,6 @@ class PlayerController extends GetxController {
   var position =''.obs;
  final searchResults = <SongModel>[].obs;
 
- //final dbHelper = DatabaseHelper.instance;
 
 
 
@@ -34,36 +33,8 @@ class PlayerController extends GetxController {
     super.onInit();
      checkPermission();
      initAudioPlayerListeners(); 
-   //    _initializeDatabase(); 
+   
   }
-
-
-
-// void _initializeDatabase() async {
-//   await dbHelper.database; // Ensure database initialization
-// }
-
- 
-// void addToFavorites(SongModel song) async {
-//     final favoriteSong = FavoriteSong(
-//       id: song.id,
-//       title: song.title,
-//       artist: song.artist!,
-//       uri: song.uri!,
-//     );
-//     await dbHelper.insertFavorite(favoriteSong);
-//   }
-
-
-// Future<List<FavoriteSong>> getFavorites() async {
-//     return await dbHelper.getFavorites();
-//   }
-
-
-// Future<void> removeFromFavorites(int id) async {
-//     await dbHelper.deleteFavorite(id);
-//   }
-
 
 
 
