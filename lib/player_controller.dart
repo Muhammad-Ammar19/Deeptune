@@ -195,18 +195,6 @@ changeDurationToSeconds(seconds){
 }
 
 
-// playSong(String? uri, index){
-//   playIndex.value = index;
-//   try{
-//     audioPlayer.setAudioSource(
-//       AudioSource.uri(Uri.parse(uri!)));
-//       audioPlayer.play();
-//       isPlaying(true);
-//       updatedPosition();
-//  } on Exception catch (e){ e;}
-// }
-// }
-
   @override
   void onClose() {
     audioPlayer.dispose(); // Clean up resources when controller is closed
