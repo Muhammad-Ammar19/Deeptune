@@ -155,7 +155,8 @@ void updatedPosition() {
     }
   });
 
-  audioPlayer.positionStream.listen((p) {
+
+audioPlayer.positionStream.listen((p) {
     final positionInSeconds = p.inSeconds;
     final positionValue = positionInSeconds.toDouble();
     final minutes = (positionInSeconds ~/ 60).toString().padLeft(2, '0');
@@ -221,8 +222,6 @@ changeDurationToSeconds(seconds){
       checkPermission();
     }
   }
-
-
 }
 
 
