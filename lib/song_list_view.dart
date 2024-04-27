@@ -107,37 +107,4 @@ class SongListView extends StatelessWidget {
 
 
 
-    // return  Expanded(
-    //   child: ListView.builder(
-    //                physics: const BouncingScrollPhysics(),
-    //                   itemCount: 30,
-    //                   itemBuilder: (BuildContext context, int index) {
-    //                     return ListTile(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-    //                       subtitle: const Text(
-    //                         "Artist",
-    //                         style: TextStyle(fontSize: 13,color: Colors.grey),
-    //                       ),
-    //                       leading: Card(
-    //                         elevation: 5,
-    //                         child: ClipRRect(
-    //                             borderRadius: BorderRadius.circular(4),
-    //                             child: Image.asset(
-    //                               "assets/images/strangerthings.jpg",
-
-    //                             )),
-    //                       ),
-    //                       trailing: const Icon(
-    //                         Icons.play_arrow_outlined,
-    //                         size: 20,
-    //                         color: Colors.white,
-    //                       ),
-    //                       title: Text(
-    //                         "Song Name $index",
-    //                         style: const TextStyle(
-    //                             fontSize: 13, color: Colors.white),
-    //                       ),
-    //                     );
-    //                   },
-    //   ),
-    // );
 
