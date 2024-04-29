@@ -6,8 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initHive();
@@ -16,6 +14,7 @@ void main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
+
 Future<void> _initHive() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
@@ -57,11 +56,12 @@ class MyApp extends StatelessWidget {
       future: ThemePreference.getTheme(),
       builder: (context, snapshot) {
         final isDarkMode = snapshot.data ?? false;
+
         return GetMaterialApp(
           title: "DeepTune",
           themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
           darkTheme: ThemeData.dark(useMaterial3: true),
-          theme: ThemeData(
+          theme: ThemeData(fontFamily: 'Monteserrat',
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
