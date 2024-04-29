@@ -12,7 +12,7 @@ class SongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-
+ 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

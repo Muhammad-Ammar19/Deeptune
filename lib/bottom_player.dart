@@ -1,4 +1,5 @@
 import 'package:deeptune_musicplayer/player_controller.dart';
+import 'package:deeptune_musicplayer/song_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -19,7 +20,9 @@ class BottomMusicPlayer extends StatelessWidget {
       }
 
       return GestureDetector(
-        onTap: () {},
+     onTap: () {
+ 
+      }, // Navigate to SongPage with song data
         child: Card(
           elevation: 4,
           child: Container(
