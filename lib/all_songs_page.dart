@@ -7,7 +7,10 @@ class AllSongsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Songs',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+        title: const Text(
+          'All Songs',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
     );

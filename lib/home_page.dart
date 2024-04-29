@@ -1,4 +1,5 @@
 import 'package:deeptune_musicplayer/equalizer_page.dart';
+import 'package:deeptune_musicplayer/main.dart';
 import 'package:deeptune_musicplayer/music_library.dart';
 import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'search_list.dart';
 import 'song_list_view.dart';
 import 'recently_played.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
 
         drawer: const CustomDrawer(), // Drawer
 
-        bottomNavigationBar:  const BottomMusicPlayer(), // Bottom Music Player
+        bottomNavigationBar: const BottomMusicPlayer(), // Bottom Music Player
 
         body: SafeArea(
           child: Column(
@@ -158,33 +158,17 @@ class CustomDrawer extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ListTile(
-              onTap: () {
-           Get.changeThemeMode(ThemeMode.light);
+              onTap: () async {
+                await ThemePreference.setTheme(false);
+                Get.changeThemeMode(ThemeMode.light);
               },
               title: const Text(
                 "Light mode ",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),                 //  Light Mode
-              ),
-              leading: const Icon( 
-                Icons.light_mode_rounded,
-                size: 15,
-                
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 12,
-              ),
-              dense: true,
-            ),
-          ListTile( onTap: () {
-              Get.changeThemeMode(ThemeMode.dark);
-            },
-              title: const Text(
-                "Dark mode",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),                 //  Dark Mode
+                style: TextStyle(
+                    fontSize: 13, fontWeight: FontWeight.bold), //  Light Mode
               ),
               leading: const Icon(
-              Icons.dark_mode_rounded,
+                Icons.light_mode_rounded,
                 size: 15,
               ),
               trailing: const Icon(
@@ -194,16 +178,17 @@ class CustomDrawer extends StatelessWidget {
               dense: true,
             ),
             ListTile(
-              onTap: () {
-
-                
+              onTap: () async {
+                await ThemePreference.setTheme(true);
+                Get.changeThemeMode(ThemeMode.dark);
               },
               title: const Text(
-                "Choose Language",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),                 // Bluetooth 
+                "Dark mode",
+                style: TextStyle(
+                    fontSize: 13, fontWeight: FontWeight.bold), //  Dark Mode
               ),
               leading: const Icon(
-               Icons.language_rounded,
+                Icons.dark_mode_rounded,
                 size: 15,
               ),
               trailing: const Icon(
@@ -212,10 +197,27 @@ class CustomDrawer extends StatelessWidget {
               ),
               dense: true,
             ),
-            ListTile( 
+            ListTile(
+              onTap: () {},
+              title: const Text(
+                "Choose Language",
+                style: TextStyle(
+                    fontSize: 13, fontWeight: FontWeight.bold), // Bluetooth
+              ),
+              leading: const Icon(
+                Icons.language_rounded,
+                size: 15,
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 12,
+              ),
+              dense: true,
+            ),
+            ListTile(
               title: const Text(
                 "Equalizer",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),               
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
               ),
               leading: const Icon(
                 Icons.equalizer_rounded,
@@ -231,9 +233,11 @@ class CustomDrawer extends StatelessWidget {
                     transition: Transition.fadeIn);
               },
             ),
-             ListTile(onTap: () {
-              Get.to(()=>const GridViewPage(),transition: Transition.fadeIn);
-            },
+            ListTile(
+              onTap: () {
+                Get.to(() => const GridViewPage(),
+                    transition: Transition.fadeIn);
+              },
               title: const Text(
                 "Music Library",
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
@@ -248,19 +252,25 @@ class CustomDrawer extends StatelessWidget {
               ),
               dense: true,
             ),
-            
             ListTile(
               onTap: () {
-                Get.defaultDialog(titleStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-                  middleText: 'Want to support the developers?\nYou can support the developers by watching the ad.',
-                  confirm:const Text("Sure",style: TextStyle(color: Colors.green),),
-                  radius:10,
+                Get.defaultDialog(
+                  titleStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  middleText:
+                      'Want to support the developers?\nYou can support the developers by watching the ad.',
+                  confirm: const Text(
+                    "Sure",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                  radius: 10,
                   title: "Support Developers",
-                  cancel: const Text("No, Thanks",style: TextStyle(color: Colors.redAccent),),
-               titlePadding: const EdgeInsets.all(10),
-                
-                  
-                  );
+                  cancel: const Text(
+                    "No, Thanks",
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                  titlePadding: const EdgeInsets.all(10),
+                );
               },
               title: const Text(
                 "Support the Developers",
@@ -280,11 +290,11 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 Get.defaultDialog(
-                    title: 'Deeptune From ryze.',
-                    middleText:
-                        'Deeptune is your ultimate music player for a seamless listening experience. Enjoy customizable playback, playlist management, offline mode, and cross-platform sync.',
-                   radius: 10,
-                  );
+                  title: 'Deeptune From ryze.',
+                  middleText:
+                      'Deeptune is your ultimate music player for a seamless listening experience. Enjoy customizable playback, playlist management, offline mode, and cross-platform sync.',
+                  radius: 10,
+                );
               },
               title: const Text(
                 "About",

@@ -3,13 +3,22 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await _initHive();
   await _requestPermission();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
+}
+Future<void> _initHive() async {
+  final appDocumentDir = await getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
 }
 
 Future<void> _requestPermission() async {
@@ -21,25 +30,44 @@ Future<void> _requestPermission() async {
   // Permission is granted. You can proceed with accessing storage.
 }
 
+class ThemePreference {
+  static const String _boxName = 'theme_preference';
+
+  static Future<Box> _openBox() async {
+    return await Hive.openBox(_boxName);
+  }
+
+  static Future<void> setTheme(bool isDarkMode) async {
+    final box = await _openBox();
+    await box.put('isDarkMode', isDarkMode);
+  }
+
+  static Future<bool> getTheme() async {
+    final box = await _openBox();
+    return box.get('isDarkMode', defaultValue: false);
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "DeepTune",
-      themeMode: ThemeMode.system,
-      darkTheme: ThemeData.dark(useMaterial3: true,),
-
-      theme: ThemeData(
-     //   fontFamily: "Monteserrat",
-        useMaterial3: true,
-     //   brightness: Brightness.light,
-      
-      ),
-      debugShowCheckedModeBanner: false,
-      home:  PageViewMain(),
+    return FutureBuilder<bool>(
+      future: ThemePreference.getTheme(),
+      builder: (context, snapshot) {
+        final isDarkMode = snapshot.data ?? false;
+        return GetMaterialApp(
+          title: "DeepTune",
+          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          darkTheme: ThemeData.dark(useMaterial3: true),
+          theme: ThemeData(
+            useMaterial3: true,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: PageViewMain(),
+        );
+      },
     );
   }
 }
