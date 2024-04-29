@@ -1,5 +1,4 @@
 import 'package:deeptune_musicplayer/player_controller.dart';
-import 'package:deeptune_musicplayer/song_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -33,7 +32,7 @@ class BottomMusicPlayer extends StatelessWidget {
               children: [
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
-                  elevation: 5,
+                  elevation: 3,
                   child: QueryArtworkWidget(
                     id: 6,
                     type: ArtworkType.AUDIO,
