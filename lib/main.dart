@@ -60,8 +60,11 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: "DeepTune",
           themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          darkTheme: ThemeData.dark(useMaterial3: true),
-          theme: ThemeData(fontFamily: 'Monteserrat',
+          darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+              textTheme:
+                  ThemeData.dark().textTheme.apply(fontFamily: 'Monteserrat')),
+          theme: ThemeData(
+            fontFamily: 'Monteserrat',
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
