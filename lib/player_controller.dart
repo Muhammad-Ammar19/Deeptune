@@ -38,9 +38,32 @@ class PlayerController extends GetxController {
   }
 
 
+// Rewind Code 
+void rewind(int seconds) {
+  final currentPosition = audioPlayer.position;
+  final newPosition = currentPosition - Duration(seconds: seconds);
 
+  // Ensure newPosition is not negative
+  if (newPosition.isNegative) {
+    audioPlayer.seek(Duration.zero); // Seek to the beginning
+  } else {
+    audioPlayer.seek(newPosition);
+  }
+}
 
+// FastForward Code
+void fastForward(int seconds) {
+  final currentPosition = audioPlayer.position;
+  final newPosition = currentPosition + Duration(seconds: seconds);
+  final totalDuration = audioPlayer.duration ?? Duration.zero;
 
+  // Ensure newPosition is not greater than total duration
+  if (newPosition >= totalDuration) {
+    audioPlayer.seek(totalDuration); // Seek to the end
+  } else {
+    audioPlayer.seek(newPosition);
+  }
+}
 
 
 void initAudioPlayerListeners() {
@@ -170,22 +193,6 @@ audioPlayer.positionStream.listen((p) {
 }
 
 
-
- // Rewind Code 
- void rewind(int seconds) {
-    final currentPosition = audioPlayer.position;
-    final newPosition = currentPosition - Duration(seconds: seconds);
-    audioPlayer.seek(newPosition);
-  }
-
-
-
-// FastForward Code
-void fastForward(int seconds) {
-  final currentPosition = audioPlayer.position;
-  final newPosition = currentPosition + Duration(seconds: seconds);
-  audioPlayer.seek(newPosition);
-}
 
 
 //  for slider seeking 
