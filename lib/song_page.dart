@@ -7,16 +7,14 @@ import 'package:on_audio_query/on_audio_query.dart';
 class SongPage extends StatelessWidget {
   final List<SongModel> data;
 
-  const SongPage({
-    super.key,
-    required this.data,
-  });
+  const SongPage({super.key, required this.data,});
 
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-
+ 
     return GestureDetector(
+
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity != 0) {
           if (details.primaryVelocity! > 0) {
@@ -28,12 +26,17 @@ class SongPage extends StatelessWidget {
           }
         }
       },
+
+
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.more_vert_rounded))
+          actions:  [
+           IconButton(onPressed: (){
+      
+        
+      
+           }, icon: const Icon(Icons.more_vert_rounded))
           ],
           title: const Text(
             "Now Playing",
@@ -72,12 +75,7 @@ class SongPage extends StatelessWidget {
                   ),
                   SizedBox(height: Get.height * 0.04),
                   ListTile(
-                    leading: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.playlist_add,
-                          size: 25,
-                        )),
+                    leading: IconButton(onPressed: (){}, icon:const Icon(Icons.playlist_add,size: 25,)),
                     title: Text(
                       data[controller.playIndex.value].displayNameWOExt,
                       style: const TextStyle(
@@ -88,8 +86,7 @@ class SongPage extends StatelessWidget {
                       overflow: TextOverflow.clip,
                     ),
                     subtitle: Text(
-                      data[controller.playIndex.value].artist ??
-                          'Unknown Artist',
+                      data[controller.playIndex.value].artist ?? 'Unknown Artist',
                       style: const TextStyle(fontSize: 12),
                     ),
                     trailing: IconButton(
@@ -191,7 +188,7 @@ class SongPage extends StatelessWidget {
                           icon: const Icon(Icons.forward_10_rounded)),
                       IconButton(
                         //Equalizer Button
-
+        
                         onPressed: () {
                           Get.to(() => const EqualizerPage(),
                               transition: Transition.fadeIn);
@@ -207,9 +204,7 @@ class SongPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _playPreviousSong(PlayerController controller) {
+  }void _playPreviousSong(PlayerController controller) {
     int prevIndex = controller.playIndex.value - 1;
     if (prevIndex < 0) {
       prevIndex = data.length - 1;

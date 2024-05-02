@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -192,6 +193,41 @@ audioPlayer.positionStream.listen((p) {
 }
 
 
+
+
+void deleteSong(SongModel song) {
+  // Ask for confirmation before deleting
+  showDialog(
+    context: Get.context!,
+    builder: (context) => AlertDialog(
+      title: const Text('Confirm Deletion',style: TextStyle(fontSize: 20),),
+      content: const Text('Are you sure you want to delete this song?'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            // Dismiss the dialog
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            // Remove the song from the list
+            searchResults.remove(song);
+            // You may need to delete from storage as well
+            // Notify the user
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Song deleted')),
+            );
+            // Dismiss the dialog
+            Navigator.of(context).pop();
+          },
+          child: const Text('Delete'),
+        ),
+      ],
+    ),
+  );
+}
 
 
 //  for slider seeking 

@@ -1,4 +1,3 @@
-import 'package:deeptune_musicplayer/bottom_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -19,10 +18,7 @@ class SearchList extends StatelessWidget {
           'Search Songs',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
         ),
-    
-   
       ),
-      bottomNavigationBar:  const BottomMusicPlayer(),
       body: SafeArea(
         child: Column(
           children: [
@@ -73,9 +69,49 @@ class SearchList extends StatelessWidget {
                               artworkQuality: FilterQuality.high,
                             ),
                           ),
-                          trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.more_vert_rounded)),
+                          trailing: PopupMenuButton<String>(
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<String>>[
+                              const PopupMenuItem<String>(
+                                value: 'edit',
+                                child: ListTile(
+                                  leading: Icon(Icons.edit),
+                                  title: Text('Edit'),
+                                ),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'delete',
+                                child: ListTile(
+                                  leading: Icon(Icons.delete),
+                                  title: Text('Delete'),
+                                ),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'addToFav',
+                                child: ListTile(
+                                  leading: Icon(Icons.favorite),
+                                  title: Text('Add to Favorites'),
+                                ),
+                              ),
+                            ],
+                            onSelected: (String value) {
+                              // Perform action based on selected value
+                              switch (value) {
+                                case 'edit':
+                                  // Handle edit action
+                                  break;
+                                case 'delete':
+                                  controller.deleteSong(song); // Handle delete action
+                                  break;
+                                case 'addToFav':
+                                  // Handle add to favorites action
+                                  break;
+                                default:
+                                  // Handle default case
+                                  break;
+                              }
+                            },
+                          ),
                           title: Text(
                             song.displayNameWOExt,
                             overflow: TextOverflow.ellipsis,
