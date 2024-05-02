@@ -1,27 +1,31 @@
+
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+
 class BottomMusicPlayer extends StatelessWidget {
-  const BottomMusicPlayer({super.key});
+  const BottomMusicPlayer({super.key,});
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<PlayerController>();         // Access PlayerController
+    var controller = Get.find<PlayerController>(); // Access PlayerController
 
     return Obx(() {
       var currentSong = controller.selectedSong.value;
       var isPlaying = controller.isPlaying.value;
 
       if (currentSong == null) {
-        return const Card();                               // Placeholder widget when no song is selected
+        return const Card(); // Placeholder widget when no song is selected
       }
 
       return GestureDetector(
-     onTap: () {
+        onTap: () {
+
  
-      }, // Navigate to SongPage with song data
+
+        }, // Navigate to SongPage with song data
         child: Card(
           elevation: 4,
           child: Container(
@@ -30,17 +34,18 @@ class BottomMusicPlayer extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10),
             child: Row(
               children: [
+                // Song Image
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
-                  elevation: 3,
+                  elevation: 4,
                   child: QueryArtworkWidget(
-                    id: 6,
+                    id: currentSong.id,
                     type: ArtworkType.AUDIO,
-                    artworkHeight: Get.height * 0.01,
+                    artworkHeight: Get.height * 0.06,
                     artworkFit: BoxFit.cover,
                     artworkQuality: FilterQuality.high,
                     artworkBorder: BorderRadius.circular(6),
-                    artworkWidth: double.infinity,
+                    artworkWidth: Get.height * 0.06,
                     quality: 100,
                     nullArtworkWidget: const Icon(
                       Icons.music_note_rounded,

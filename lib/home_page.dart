@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
 
         drawer: const CustomDrawer(), // Drawer
 
-        bottomNavigationBar:  const BottomMusicPlayer(), // Bottom Music Player
+        bottomNavigationBar:   const BottomMusicPlayer(), // Bottom Music Player
 
         body: SafeArea(
           child: Column(

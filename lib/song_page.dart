@@ -6,7 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class SongPage extends StatelessWidget {
   final List<SongModel> data;
-
+  
   const SongPage({
     super.key,
     required this.data,

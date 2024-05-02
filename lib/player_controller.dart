@@ -21,6 +21,7 @@ class PlayerController extends GetxController {
  final searchResults = <SongModel>[].obs;
 
 
+final recentlyPlayedSongs = <SongModel>[].obs; 
 
 
 
@@ -98,7 +99,16 @@ void initAudioPlayerListeners() {
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
       audioPlayer.play();
       isPlaying(true);
-    } on Exception catch (e){ e;}
+
+      // Add the played song to the list of recently played songs
+      if (searchResults.isNotEmpty) {
+        recentlyPlayedSongs.insert(0, searchResults[index]);
+        if (recentlyPlayedSongs.length > 100) {
+          recentlyPlayedSongs.removeLast();
+        }
+      }
+    } catch (_) {
+    }
   }
 
  void playNextSong() {
