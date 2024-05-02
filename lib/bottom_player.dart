@@ -1,12 +1,10 @@
-
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-
 class BottomMusicPlayer extends StatelessWidget {
-  const BottomMusicPlayer({super.key,});
+  const BottomMusicPlayer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +20,8 @@ class BottomMusicPlayer extends StatelessWidget {
 
       return GestureDetector(
         onTap: () {
-
- 
-
-        }, // Navigate to SongPage with song data
+          // Navigate to SongPage with song data
+        },
         child: Card(
           elevation: 4,
           child: Container(
@@ -71,9 +67,22 @@ class BottomMusicPlayer extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: LinearProgressIndicator(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                          value: (controller.value.value / controller.max.value)
+                              .clamp(0.0, 1.0),
+                          backgroundColor: Colors.grey[300],
+                          valueColor:
+                              const AlwaysStoppedAnimation<Color>(Colors.blue),
+                        ),
+                      ),
                     ],
                   ),
                 ),
+
                 // Play/Pause and Next Button
                 IconButton(
                   icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
