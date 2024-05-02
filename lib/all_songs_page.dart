@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/song_list_view.dart';
 import 'package:flutter/material.dart';
 
 class AllSongsPage extends StatelessWidget {
@@ -13,6 +14,7 @@ class AllSongsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
+      body: const SongListView(),
     );
   }
 }
