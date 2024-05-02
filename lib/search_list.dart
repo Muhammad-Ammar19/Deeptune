@@ -101,7 +101,8 @@ class SearchList extends StatelessWidget {
                                   // Handle edit action
                                   break;
                                 case 'delete':
-                                  controller.deleteSong(song); // Handle delete action
+                                  controller
+                                      .deleteSong(song); // Handle delete action
                                   break;
                                 case 'addToFav':
                                   // Handle add to favorites action
