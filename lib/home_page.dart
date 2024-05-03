@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/main.dart';
 import 'package:deeptune_musicplayer/music_library.dart';
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => SearchList(),
+                        Get.to(() => const AllSongsPage(),
                             transition: Transition.fadeIn);
                       },
                       child: const Text(

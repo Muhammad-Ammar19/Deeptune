@@ -11,7 +11,7 @@ class RecentlyPlayed extends StatelessWidget {
     var controller = Get.find<PlayerController>();
 
     return SizedBox(
-      height: Get.height * 0.10,
+      height: Get.height * 0.11,
       width: double.infinity,
       child: Obx(
         () {
@@ -45,11 +45,11 @@ class RecentlyPlayed extends StatelessWidget {
                           child: QueryArtworkWidget(
                             id: song.id,
                             type: ArtworkType.AUDIO,
-                            artworkHeight: Get.height * 0.07,
+                            artworkHeight: Get.height * 0.08,
                             artworkFit: BoxFit.cover,
                             artworkQuality: FilterQuality.high,
                             artworkBorder: BorderRadius.circular(4),
-                            artworkWidth: Get.width * 0.16,
+                            artworkWidth: Get.width * 0.17,
                             quality: 100,
                             nullArtworkWidget: const Icon(
                               Icons.music_note_rounded,
