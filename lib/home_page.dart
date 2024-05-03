@@ -200,12 +200,12 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               onTap: () {},
               title: const Text(
-                "Choose Language",
+                "Chrome Cast",
                 style: TextStyle(
                     fontSize: 13, fontWeight: FontWeight.bold), // Bluetooth
               ),
               leading: const Icon(
-                Icons.language_rounded,
+                Icons.cast_connected_rounded,
                 size: 15,
               ),
               trailing: const Icon(
