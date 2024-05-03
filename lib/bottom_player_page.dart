@@ -12,7 +12,7 @@ class BottomMusicPlayerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var currentSong = controller.selectedSong.value;
-   // var isPlaying = controller.isPlaying.value;
+    // var isPlaying = controller.isPlaying.value;
 
     if (currentSong == null) {
       return const Scaffold(
@@ -25,6 +25,10 @@ class BottomMusicPlayerPage extends StatelessWidget {
         child: const Placeholder(),
       ),
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.more_vert_rounded))
+        ],
         centerTitle: true,
         title: const Text(
           "Now Playing",
