@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       "Recent",
                       style: TextStyle(
                           fontFamily: "Monteserrat",
-                          fontSize: 23,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
                     // GestureDetector(
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               const RecentlyPlayed(), // New Page for recently played
 
               Container(
-                margin: const EdgeInsets.only(left: 13, right: 17, top: 5),
+                margin: const EdgeInsets.only(left: 13, right: 17),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       "Song list",
                       style: TextStyle(
                           fontFamily: "Monteserrat",
-                          fontSize: 23,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(

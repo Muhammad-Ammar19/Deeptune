@@ -11,7 +11,7 @@ class RecentlyPlayed extends StatelessWidget {
     var controller = Get.find<PlayerController>();
 
     return SizedBox(
-      height: Get.height * 0.08,
+      height: Get.height * 0.10,
       width: double.infinity,
       child: Obx(
         () {
@@ -38,22 +38,33 @@ class RecentlyPlayed extends StatelessWidget {
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Card(
-                      elevation: 4,
-                      child: QueryArtworkWidget(
-                        id: song.id,
-                        type: ArtworkType.AUDIO,
-                        artworkHeight: Get.height * 0.08,
-                        artworkFit: BoxFit.cover,
-                        artworkQuality: FilterQuality.high,
-                        artworkBorder: BorderRadius.circular(4),
-                        artworkWidth: Get.width * 0.15,
-                        quality: 100,
-                        nullArtworkWidget: const Icon(
-                          Icons.music_note_rounded,
-                          size: 50,
+                    child: Column(
+                      children: [
+                        Card(
+                          elevation: 4,
+                          child: QueryArtworkWidget(
+                            id: song.id,
+                            type: ArtworkType.AUDIO,
+                            artworkHeight: Get.height * 0.07,
+                            artworkFit: BoxFit.cover,
+                            artworkQuality: FilterQuality.high,
+                            artworkBorder: BorderRadius.circular(4),
+                            artworkWidth: Get.width * 0.16,
+                            quality: 100,
+                            nullArtworkWidget: const Icon(
+                              Icons.music_note_rounded,
+                              size: 59,
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          song.artist ?? 'Unknown Artist',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );
