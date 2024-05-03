@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                   Get.to(() => SearchList(), transition: Transition.fadeIn);
                 },
                 child: const Padding(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: EdgeInsets.only(right: 11),
                   child: Icon(
                     Icons.search,
                     size: 25,
