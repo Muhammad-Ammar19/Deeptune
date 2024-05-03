@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/bottom_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -11,7 +12,7 @@ class SearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(bottomNavigationBar: const BottomMusicPlayer(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text(

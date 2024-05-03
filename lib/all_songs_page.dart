@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/bottom_player.dart';
 import 'package:deeptune_musicplayer/song_list_view.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ class AllSongsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(bottomNavigationBar: const BottomMusicPlayer(),
       appBar: AppBar(
         title: const Text(
           'All Songs',
