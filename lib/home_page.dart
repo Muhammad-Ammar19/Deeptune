@@ -2,6 +2,7 @@ import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/main.dart';
 import 'package:deeptune_musicplayer/music_library.dart';
+import 'package:deeptune_musicplayer/recent_page.dart';
 import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:get/get.dart';
 import 'bottom_player.dart';
@@ -10,14 +11,9 @@ import 'search_list.dart';
 import 'song_list_view.dart';
 import 'recently_played.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,32 +66,28 @@ class _HomePageState extends State<HomePage> {
               Container(
                 margin: const EdgeInsets.only(
                     top: 10, left: 13, right: 16, bottom: 5),
-                child: const Row(
+                child:  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Recent",
                       style: TextStyle(
                           fontFamily: "Monteserrat",
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) =>  SearchList()));
-                    //   }
-                    //   child: const Text(
-                    //     "See all >",
-                    //     style: TextStyle(
-                    //         fontFamily: "Monteserrat",
-                    //         fontSize: 11,
-                    //         color: Colors.grey,
-                    //         fontWeight: FontWeight.normal),
-                    //   ),
-                    // ),
+                 GestureDetector( onTap: () {
+                   Get.to(const RecentPage(),transition: Transition.fadeIn);
+                 },
+                   child: const Text(
+                          "See all >",
+                          style: TextStyle(
+                              fontFamily: "Monteserrat",
+                              fontSize: 12.5,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.normal),
+                        ),
+                 ),
                   ],
                 ),
               ),
@@ -123,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                         "See all >",
                         style: TextStyle(
                             fontFamily: "Monteserrat",
-                            fontSize: 12,
+                            fontSize: 12.5,
                             color: Colors.grey,
                             fontWeight: FontWeight.normal),
                       ),
