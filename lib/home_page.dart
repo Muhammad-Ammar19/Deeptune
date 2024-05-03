@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
 
         drawer: const CustomDrawer(), // Drawer
 
-        bottomNavigationBar:   const BottomMusicPlayer(), // Bottom Music Player
+        bottomNavigationBar: const BottomMusicPlayer(), // Bottom Music Player
 
         body: SafeArea(
           child: Column(
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(
                     top: 10, left: 13, right: 16, bottom: 5),
-                child:  Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
@@ -76,18 +76,20 @@ class HomePage extends StatelessWidget {
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
-                 GestureDetector( onTap: () {
-                   Get.to(const RecentPage(),transition: Transition.fadeIn);
-                 },
-                   child: const Text(
-                          "See all >",
-                          style: TextStyle(
-                              fontFamily: "Monteserrat",
-                              fontSize: 12.5,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal),
-                        ),
-                 ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(const RecentPage(),
+                            transition: Transition.fadeIn);
+                      },
+                      child: const Text(
+                        "See all >",
+                        style: TextStyle(
+                            fontFamily: "Monteserrat",
+                            fontSize: 12.5,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
                   ],
                 ),
               ),

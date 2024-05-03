@@ -13,7 +13,7 @@ class BottomMusicPlayerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var currentSong = controller.selectedSong.value;
     // var isPlaying = controller.isPlaying.value;
-
+    final List<SongModel> data;
     if (currentSong == null) {
       return const Scaffold(
           body: Center(child: Text('No song is currently playing')));
