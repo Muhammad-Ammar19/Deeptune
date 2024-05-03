@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/bottom_player_page.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,21 +9,21 @@ class BottomMusicPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<PlayerController>(); // Access PlayerController
+    var controller = Get.find<PlayerController>();
 
-    return Obx(() {
-      var currentSong = controller.selectedSong.value;
-      var isPlaying = controller.isPlaying.value;
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => BottomMusicPlayerPage(), transition: Transition.fadeIn);
+      },
+      child: Obx(() {
+        var currentSong = controller.selectedSong.value;
+        var isPlaying = controller.isPlaying.value;
 
-      if (currentSong == null) {
-        return const Card(); // Placeholder widget when no song is selected
-      }
+        if (currentSong == null) {
+          return const Card();
+        }
 
-      return GestureDetector(
-        onTap: () {
-          // Navigate to SongPage with song data
-        },
-        child: Card(
+        return Card(
           elevation: 4,
           child: Container(
             height: Get.height * 0.1,
@@ -97,8 +98,8 @@ class BottomMusicPlayer extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

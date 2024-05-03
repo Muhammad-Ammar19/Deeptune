@@ -4,179 +4,206 @@ import 'package:get/get.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class BottomPlayerPage extends StatelessWidget {
-  final List<SongModel> data;
+class BottomMusicPlayerPage extends StatelessWidget {
+  final PlayerController controller = Get.find<PlayerController>();
 
-  const BottomPlayerPage({Key? key, required this.data}) : super(key: key);
+  BottomMusicPlayerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<PlayerController>();
+    var currentSong = controller.selectedSong.value;
+   // var isPlaying = controller.isPlaying.value;
+
+    if (currentSong == null) {
+      return const Scaffold(
+          body: Center(child: Text('No song is currently playing')));
+    }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Now Playing'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert_rounded),
-          ),
-        ],
+      bottomNavigationBar: SizedBox(
+        height: Get.height * 0.05,
+        child: const Placeholder(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 16),
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              elevation: 5,
-              child: QueryArtworkWidget(
-                id: data[controller.playIndex.value].id,
-                type: ArtworkType.AUDIO,
-                artworkHeight: 400,
-                artworkFit: BoxFit.cover,
-                artworkQuality: FilterQuality.high,
-                artworkBorder: BorderRadius.circular(6),
-                artworkWidth: double.infinity,
-                quality: 100,
-                nullArtworkWidget: const Icon(
-                  Icons.music_note_rounded,
-                  size: 405,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ListTile(
-              leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.playlist_add, size: 25),
-              ),
-              title: Text(
-                data[controller.playIndex.value].displayNameWOExt,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.clip,
-              ),
-              subtitle: Text(
-                data[controller.playIndex.value].artist ?? 'Unknown Artist',
-                style: const TextStyle(fontSize: 12),
-              ),
-              trailing: IconButton(
-                onPressed: () {
-                  // Toggle favorite status
-                },
-                icon: const Icon(Icons.favorite_outline_rounded),
-              ),
-            ),
-            Obx(
-              () => Slider(
-                min: 0,
-                max: controller.max.value.toDouble(),
-                value: controller.value.value.toDouble(),
-                onChanged: (newValue) {
-                  controller.changeDurationToSeconds(newValue.toInt());
-                },
-              ),
-            ),
-            Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    controller.position.value,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  ),
-                  const SizedBox(width: 310),
-                  Text(
-                    controller.duration.value,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Now Playing",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity != 0) {
+            if (details.primaryVelocity! > 0) {
+              _playPreviousSong(controller);
+            } else {
+              _playNextSong(controller);
+            }
+          }
+        },
+        child: SingleChildScrollView(
+          child: Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.shuffle_rounded),
-                ), // Repeat, Loop, Shuffle
-                IconButton(
-                  onPressed: () {
-                    controller.rewind(10); // Rewind button
-                  },
-                  icon: const Icon(Icons.replay_10_rounded),
-                ),
-                IconButton(
-                  onPressed: () {
-                    int prevIndex = controller.playIndex.value - 1;
-                    if (prevIndex < 0) {
-                      prevIndex = data.length - 1;
-                    }
-                    controller.playSong(data[prevIndex].uri, prevIndex);
-                  },
-                  icon: const Icon(
-                    Icons.skip_previous_rounded, // Previous Button
-                    size: 25,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    if (controller.isPlaying.value) {
-                      // Play/Pause Button
-                      controller.audioPlayer.pause();
-                      controller.isPlaying(false);
-                    } else {
-                      controller.audioPlayer.play();
-                      controller.isPlaying(true);
-                    }
-                  },
-                  icon: Obx(
-                    () => Icon(
-                      controller.isPlaying.value
-                          ? Icons.pause
-                          : Icons.play_arrow_rounded, // Play/Pause Button
-                      size: 40,
+                SizedBox(height: Get.height * 0.05),
+                // Song image
+                Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  elevation: 5,
+                  child: QueryArtworkWidget(
+                    id: currentSong.id,
+                    type: ArtworkType.AUDIO,
+                    artworkHeight: Get.height * 0.48,
+                    artworkFit: BoxFit.cover,
+                    artworkQuality: FilterQuality.high,
+                    artworkBorder: BorderRadius.circular(6),
+                    artworkWidth: double.infinity,
+                    quality: 100,
+                    nullArtworkWidget: const Icon(
+                      Icons.music_note_rounded,
+                      size: 405,
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    int nextIndex = controller.playIndex.value + 1;
-                    if (nextIndex >= data.length) {
-                      nextIndex = 0;
-                    }
-                    controller.playSong(data[nextIndex].uri, nextIndex);
-                  },
-                  icon: const Icon(
-                    Icons.skip_next_rounded, // Next Button
-                    size: 28,
+                SizedBox(height: Get.height * 0.04),
+                ListTile(
+                  leading: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.playlist_add,
+                      size: 25,
+                    ),
+                  ),
+                  title: Text(
+                    currentSong.displayNameWOExt,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                  ),
+                  subtitle: Text(
+                    currentSong.artist ?? 'Unknown Artist',
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      // Toggle favorite status
+                    },
+                    icon: const Icon(Icons.favorite_outline_rounded),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    controller.fastForward(10); // Forward Button
-                  },
-                  icon: const Icon(Icons.forward_10_rounded),
+                Obx(
+                  () => Slider(
+                    min: 0,
+                    max: controller.max.value.toDouble(),
+                    value: controller.value.value.toDouble(),
+                    onChanged: (newValue) {
+                      controller.changeDurationToSeconds(newValue.toInt());
+                    },
+                  ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    Get.to(() => const EqualizerPage(),
-                        transition: Transition.fadeIn);
-                  },
-                  icon: const Icon(Icons.equalizer_rounded),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        controller.position.value,
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+                      const SizedBox(width: 310),
+                      Text(
+                        controller.duration.value,
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.shuffle_rounded),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        controller.rewind(10);
+                      },
+                      icon: const Icon(Icons.replay_10_rounded),
+                    ),
+                    IconButton(
+                      onPressed: () => _playPreviousSong(controller),
+                      icon: const Icon(
+                        Icons.skip_previous_rounded,
+                        size: 25,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        if (controller.isPlaying.value) {
+                          controller.pauseSong();
+                        } else {
+                          controller.resumeSong();
+                        }
+                      },
+                      icon: Obx(
+                        () => Icon(
+                          controller.isPlaying.value
+                              ? Icons.pause
+                              : Icons.play_arrow_rounded,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => _playNextSong(controller),
+                      icon: const Icon(
+                        Icons.skip_next_rounded,
+                        size: 28,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        controller.fastForward(10);
+                      },
+                      icon: const Icon(Icons.forward_10_rounded),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Get.to(() => const EqualizerPage(),
+                            transition: Transition.fadeIn);
+                      },
+                      icon: const Icon(Icons.equalizer_rounded),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  void _playPreviousSong(PlayerController controller) {
+    int prevIndex = controller.playIndex.value - 1;
+    if (prevIndex < 0) {
+      prevIndex = controller.searchResults.length - 1;
+    }
+    controller.playSong(controller.searchResults[prevIndex].uri, prevIndex);
+  }
+
+  void _playNextSong(PlayerController controller) {
+    int nextIndex = controller.playIndex.value + 1;
+    if (nextIndex >= controller.searchResults.length) {
+      nextIndex = 0;
+    }
+    controller.playSong(controller.searchResults[nextIndex].uri, nextIndex);
   }
 }
