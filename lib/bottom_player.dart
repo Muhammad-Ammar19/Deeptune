@@ -68,15 +68,15 @@ class BottomMusicPlayer extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 5),
+                        padding: EdgeInsets.only(top: Get.height * 0.01),
                         child: LinearProgressIndicator(
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
+                              const BorderRadius.all(Radius.circular(4)),
                           value: (controller.value.value / controller.max.value)
                               .clamp(0.0, 1.0),
-                          backgroundColor: Colors.grey[300],
-                          valueColor:
-                              const AlwaysStoppedAnimation<Color>(Colors.blue),
+                          backgroundColor: Colors.transparent,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.purple.shade300),
                         ),
                       ),
                     ],
