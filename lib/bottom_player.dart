@@ -77,7 +77,7 @@ class BottomMusicPlayer extends StatelessWidget {
                               .clamp(0.0, 1.0),
                           backgroundColor: Colors.transparent,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.purple.shade300),
+                              Colors.deepPurple.shade300),
                         ),
                       ),
                     ],
