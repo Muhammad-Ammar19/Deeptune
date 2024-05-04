@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-
-
-
 
 class PlayerController extends GetxController {
   final audioquery = OnAudioQuery();
@@ -16,14 +11,14 @@ class PlayerController extends GetxController {
   var isPlaying = false.obs;
   var max = 0.0.obs; // Change to double
   var value = 0.0.obs; // Change to double
-  var  playIndex = 0.obs;
-  var duration =''.obs;
-  var position =''.obs;
+  var playIndex = 0.obs;
+  var duration = ''.obs;
+  var position = ''.obs;
   final searchResults = <SongModel>[].obs;
-  final recentlyPlayedSongs = <SongModel>[].obs; 
+  final recentlyPlayedSongs = <SongModel>[].obs;
 
-
- void updateSelectedSong(SongModel data) {    // song changed to data
+  void updateSelectedSong(SongModel data) {
+    // song changed to data
     selectedSong.value = data;
   }
 
@@ -31,43 +26,37 @@ class PlayerController extends GetxController {
   void onInit() {
     super.onInit();
     // checkPermission();
-     initAudioPlayerListeners(); 
-   
-   
+    initAudioPlayerListeners();
   }
-  
- 
 
+// Rewind Code
+  void rewind(int seconds) {
+    final currentPosition = audioPlayer.position;
+    final newPosition = currentPosition - Duration(seconds: seconds);
 
-// Rewind Code 
-void rewind(int seconds) {
-  final currentPosition = audioPlayer.position;
-  final newPosition = currentPosition - Duration(seconds: seconds);
-
-  // Ensure newPosition is not negative
-  if (newPosition.isNegative) {
-    audioPlayer.seek(Duration.zero); // Seek to the beginning
-  } else {
-    audioPlayer.seek(newPosition);
+    // Ensure newPosition is not negative
+    if (newPosition.isNegative) {
+      audioPlayer.seek(Duration.zero); // Seek to the beginning
+    } else {
+      audioPlayer.seek(newPosition);
+    }
   }
-}
 
 // FastForward Code
-void fastForward(int seconds) {
-  final currentPosition = audioPlayer.position;
-  final newPosition = currentPosition + Duration(seconds: seconds);
-  final totalDuration = audioPlayer.duration ?? Duration.zero;
+  void fastForward(int seconds) {
+    final currentPosition = audioPlayer.position;
+    final newPosition = currentPosition + Duration(seconds: seconds);
+    final totalDuration = audioPlayer.duration ?? Duration.zero;
 
-  // Ensure newPosition is not greater than total duration
-  if (newPosition >= totalDuration) {
-    audioPlayer.seek(totalDuration); // Seek to the end
-  } else {
-    audioPlayer.seek(newPosition);
+    // Ensure newPosition is not greater than total duration
+    if (newPosition >= totalDuration) {
+      audioPlayer.seek(totalDuration); // Seek to the end
+    } else {
+      audioPlayer.seek(newPosition);
+    }
   }
-}
 
-
-void initAudioPlayerListeners() {
+  void initAudioPlayerListeners() {
     audioPlayer.durationStream.listen((d) {
       if (d != null) {
         final durationInSeconds = d.inSeconds;
@@ -84,7 +73,7 @@ void initAudioPlayerListeners() {
       final seconds = (positionInSeconds % 60).toString().padLeft(2, '0');
       position.value = '$minutes:$seconds';
       value.value = positionInSeconds.toDouble();
-        });
+    });
 
     audioPlayer.playerStateStream.listen((playerState) {
       if (playerState.processingState == ProcessingState.completed) {
@@ -93,38 +82,37 @@ void initAudioPlayerListeners() {
     });
   }
 
-void playSong(String? uri, int index) {
-  try {
-    // Set the index of the currently playing song
-    playIndex.value = index;
+  void playSong(String? uri, int index) {
+    try {
+      // Set the index of the currently playing song
+      playIndex.value = index;
 
-    // Set the audio source and play the song
-    audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-    audioPlayer.play();
-    isPlaying.value = true;
+      // Set the audio source and play the song
+      audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+      audioPlayer.play();
+      isPlaying.value = true;
 
-    // Check if the song is already in the recently played list
-    bool alreadyPlayed = recentlyPlayedSongs.any((song) => song.id == searchResults[index].id);
+      // Check if the song is already in the recently played list
+      bool alreadyPlayed =
+          recentlyPlayedSongs.any((song) => song.id == searchResults[index].id);
 
-    // Add the played song to the list of recently played songs if not already present
-    if (!alreadyPlayed) {
-      recentlyPlayedSongs.insert(0, searchResults[index]);
+      // Add the played song to the list of recently played songs if not already present
+      if (!alreadyPlayed) {
+        recentlyPlayedSongs.insert(0, searchResults[index]);
 
-      // Limit the recently played songs list to 100 items
-      if (recentlyPlayedSongs.length > 100) {
-        recentlyPlayedSongs.removeLast();
+        // Limit the recently played songs list to 100 items
+        if (recentlyPlayedSongs.length > 100) {
+          recentlyPlayedSongs.removeLast();
+        }
+
+        // Save the recently played songs to local storage
       }
-
-      // Save the recently played songs to local storage
-  
+    } catch (e) {
+      // Handle error
     }
-  } catch (e) {
-    // Handle error
   }
-}
 
-
- void playNextSong() {
+  void playNextSong() {
     final currentIndex = playIndex.value;
     if (currentIndex < searchResults.length - 1) {
       playSong(searchResults[currentIndex + 1].uri, currentIndex + 1);
@@ -139,7 +127,7 @@ void playSong(String? uri, int index) {
     isPlaying.value = false;
   }
 
-   // Play Pause
+  // Play Pause
   void togglePlayPause() {
     if (audioPlayer.playing) {
       audioPlayer.pause();
@@ -148,7 +136,7 @@ void playSong(String? uri, int index) {
     }
   }
 
-   void pauseSong() {
+  void pauseSong() {
     audioPlayer.pause();
     isPlaying.value = false;
   }
@@ -157,9 +145,9 @@ void playSong(String? uri, int index) {
     audioPlayer.play();
     isPlaying.value = true;
   }
-  
+
   // Search function to filter songs based on a search query
-Future<List<SongModel>> searchSongs(String query) async {
+  Future<List<SongModel>> searchSongs(String query) async {
     try {
       var songs = await audioquery.querySongs(
         sortType: SongSortType.TITLE,
@@ -177,7 +165,6 @@ Future<List<SongModel>> searchSongs(String query) async {
 
       return filteredSongs;
     } catch (e) {
-
       return [];
     }
   }
@@ -187,88 +174,82 @@ Future<List<SongModel>> searchSongs(String query) async {
     searchResults.assignAll(results);
   }
 
-  
-// For starting and ending time duration 
-void updatedPosition() {
-  audioPlayer.durationStream.listen((d) {
-    if (d != null) {
-      final durationInSeconds = d.inSeconds;
-      final durationValue = durationInSeconds.toDouble();
-      final minutes = (durationInSeconds ~/ 60).toString().padLeft(2, '0');
-      final seconds = (durationInSeconds % 60).toString().padLeft(2, '0');
-      duration.value = '$minutes:$seconds';
-      max.value = durationValue;
-    }
-  });
-
-
-audioPlayer.positionStream.listen((p) {
-    final positionInSeconds = p.inSeconds;
-    final positionValue = positionInSeconds.toDouble();
-    final minutes = (positionInSeconds ~/ 60).toString().padLeft(2, '0');
-    final seconds = (positionInSeconds % 60).toString().padLeft(2, '0');
-    position.value = '$minutes:$seconds';
-
-    // Clamp positionValue to be within the valid range [0.0, max.value]
-    final clampedValue = positionValue.clamp(0.0, max.value);
-    value.value = clampedValue;
+// For starting and ending time duration
+  void updatedPosition() {
+    audioPlayer.durationStream.listen((d) {
+      if (d != null) {
+        final durationInSeconds = d.inSeconds;
+        final durationValue = durationInSeconds.toDouble();
+        final minutes = (durationInSeconds ~/ 60).toString().padLeft(2, '0');
+        final seconds = (durationInSeconds % 60).toString().padLeft(2, '0');
+        duration.value = '$minutes:$seconds';
+        max.value = durationValue;
+      }
     });
-}
 
+    audioPlayer.positionStream.listen((p) {
+      final positionInSeconds = p.inSeconds;
+      final positionValue = positionInSeconds.toDouble();
+      final minutes = (positionInSeconds ~/ 60).toString().padLeft(2, '0');
+      final seconds = (positionInSeconds % 60).toString().padLeft(2, '0');
+      position.value = '$minutes:$seconds';
 
+      // Clamp positionValue to be within the valid range [0.0, max.value]
+      final clampedValue = positionValue.clamp(0.0, max.value);
+      value.value = clampedValue;
+    });
+  }
 
-
-void deleteSong(SongModel song) {
-  // Ask for confirmation before deleting
-  showDialog(
-    context: Get.context!,
-    builder: (context) => AlertDialog(
-      title: const Text('Confirm Deletion',style: TextStyle(fontSize: 20),),
-      content: const Text('Are you sure you want to delete this song?'),
-      actions: [
-        TextButton(
-          onPressed: () {
-            // Dismiss the dialog
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancel'),
+  void deleteSong(SongModel song) {
+    // Ask for confirmation before deleting
+    showDialog(
+      context: Get.context!,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          'Confirm Deletion',
+          style: TextStyle(fontSize: 20),
         ),
-        TextButton(
-          onPressed: () {
-            // Remove the song from the list
-            searchResults.remove(song);
-            // You may need to delete from storage as well
-            // Notify the user
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Song deleted')),
-            );
-            // Dismiss the dialog
-            Navigator.of(context).pop();
-          },
-          child: const Text('Delete'),
-        ),
-      ],
-    ),
-  );
-}
+        content: const Text('Are you sure you want to delete this song?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Dismiss the dialog
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Remove the song from the list
+              searchResults.remove(song);
+              // You may need to delete from storage as well
+              // Notify the user
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Song deleted')),
+              );
+              // Dismiss the dialog
+              Navigator.of(context).pop();
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
 
-
-//  for slider seeking 
-changeDurationToSeconds(seconds){
-  var duration = Duration(seconds: seconds);
-  audioPlayer.seek(duration);
-}
-
+//  for slider seeking
+  changeDurationToSeconds(seconds) {
+    var duration = Duration(seconds: seconds);
+    audioPlayer.seek(duration);
+  }
 
   @override
   void onClose() {
-    audioPlayer.dispose();     // Clean up resources when controller is closed
+    audioPlayer.dispose(); // Clean up resources when controller is closed
     super.onClose();
   }
 
-  
-
- checkPermission() async {
+  checkPermission() async {
     var perm = await Permission.storage.request();
     if (perm.isGranted) {
     } else {
@@ -276,5 +257,3 @@ changeDurationToSeconds(seconds){
     }
   }
 }
-
-
