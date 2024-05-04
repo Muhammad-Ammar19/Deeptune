@@ -74,9 +74,29 @@ class GridViewPage extends StatelessWidget {
                       'Recent',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
+                 
                   ],
                 ), // Recent Icon
-              ],
+              Column(
+                children: [
+                  IconButton(
+                          onPressed: () {
+                            // Get.to(() =>  MostPlayedPage(),
+                            //     transition: Transition.fadeIn);
+                          },
+                          icon: const Icon(
+                            Icons.headphones_rounded,
+                            size: 40,
+                          ),
+                        ),
+               
+             const Text(
+                      'Most Played',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                ],
+              ),
+                    ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,12 +121,16 @@ class GridViewPage extends StatelessWidget {
                     FutureBuilder<int>(
                       future: getTotalSongs(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
-                          return Text('${snapshot.data} Songs',style: const TextStyle(fontSize: 11),);
+                          return Text(
+                            '${snapshot.data} Songs',
+                            style: const TextStyle(fontSize: 11),
+                          );
                         }
                       },
                     ),
@@ -119,7 +143,10 @@ class GridViewPage extends StatelessWidget {
                         Get.to(() => const FavouritesPage(),
                             transition: Transition.fadeIn);
                       },
-                      icon: const Icon(Icons.favorite, size: 40,),
+                      icon: const Icon(
+                        Icons.favorite,
+                        size: 40,
+                      ),
                     ),
                     const Text(
                       'Favourites',

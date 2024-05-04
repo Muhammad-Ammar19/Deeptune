@@ -26,7 +26,7 @@ android {
     namespace "com.example.deeptune_musicplayer"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
-
+    compileSdkVersion 34                                 // This line was added due to error 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
