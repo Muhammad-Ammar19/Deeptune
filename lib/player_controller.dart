@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -18,12 +19,8 @@ class PlayerController extends GetxController {
   var  playIndex = 0.obs;
   var duration =''.obs;
   var position =''.obs;
- final searchResults = <SongModel>[].obs;
-
-
-final recentlyPlayedSongs = <SongModel>[].obs; 
-
-
+  final searchResults = <SongModel>[].obs;
+  final recentlyPlayedSongs = <SongModel>[].obs; 
 
 
  void updateSelectedSong(SongModel data) {    // song changed to data
@@ -33,10 +30,13 @@ final recentlyPlayedSongs = <SongModel>[].obs;
   @override
   void onInit() {
     super.onInit();
-     checkPermission();
+    // checkPermission();
      initAudioPlayerListeners(); 
- 
+   
+   
   }
+  
+ 
 
 
 // Rewind Code 
@@ -93,23 +93,36 @@ void initAudioPlayerListeners() {
     });
   }
 
-  void playSong(String? uri, int index) {
+void playSong(String? uri, int index) {
+  try {
+    // Set the index of the currently playing song
     playIndex.value = index;
-    try {
-      audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-      audioPlayer.play();
-      isPlaying(true);
 
-      // Add the played song to the list of recently played songs
-      if (searchResults.isNotEmpty) {
-        recentlyPlayedSongs.insert(0, searchResults[index]);
-        if (recentlyPlayedSongs.length > 100) {
-          recentlyPlayedSongs.removeLast();
-        }
+    // Set the audio source and play the song
+    audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+    audioPlayer.play();
+    isPlaying.value = true;
+
+    // Check if the song is already in the recently played list
+    bool alreadyPlayed = recentlyPlayedSongs.any((song) => song.id == searchResults[index].id);
+
+    // Add the played song to the list of recently played songs if not already present
+    if (!alreadyPlayed) {
+      recentlyPlayedSongs.insert(0, searchResults[index]);
+
+      // Limit the recently played songs list to 100 items
+      if (recentlyPlayedSongs.length > 100) {
+        recentlyPlayedSongs.removeLast();
       }
-    } catch (_) {
+
+      // Save the recently played songs to local storage
+  
     }
+  } catch (e) {
+    // Handle error
   }
+}
+
 
  void playNextSong() {
     final currentIndex = playIndex.value;
@@ -249,7 +262,7 @@ changeDurationToSeconds(seconds){
 
   @override
   void onClose() {
-    audioPlayer.dispose(); // Clean up resources when controller is closed
+    audioPlayer.dispose();     // Clean up resources when controller is closed
     super.onClose();
   }
 

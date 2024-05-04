@@ -10,8 +10,9 @@ import 'package:path_provider/path_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initHive();
-  Get.put(PlayerController()); // Initialize PlayerController instance
+  Get.put(PlayerController());
   await _requestPermission();
+  
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());

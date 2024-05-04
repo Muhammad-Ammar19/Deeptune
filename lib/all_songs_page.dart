@@ -15,7 +15,7 @@ class AllSongsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: const SongListView(),
+      body:  const SongListView(),
     );
   }
 }

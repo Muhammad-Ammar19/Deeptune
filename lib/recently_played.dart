@@ -49,7 +49,7 @@ class RecentlyPlayed extends StatelessWidget {
                             artworkFit: BoxFit.cover,
                             artworkQuality: FilterQuality.high,
                             artworkBorder: BorderRadius.circular(4),
-                            artworkWidth: Get.width * 0.16,
+                            artworkWidth: Get.width * 0.17,
                             quality: 100,
                             nullArtworkWidget: const Icon(
                               Icons.music_note_rounded,
