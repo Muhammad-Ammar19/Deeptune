@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class GridViewPage extends StatelessWidget {
-  const GridViewPage({Key? key});
+  const GridViewPage({super.key});
 
   Future<int> getTotalSongs() async {
     final OnAudioQuery onAudioQuery = OnAudioQuery();
