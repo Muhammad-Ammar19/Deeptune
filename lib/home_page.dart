@@ -301,7 +301,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               dense: true,
             ),
-            const AboutDialog(
+            const AboutDialog(applicationIcon:Image(image: AssetImage("ryze_logo.png")) ,
               applicationVersion: "Version 1.0.0",
               applicationName: "Deeptune",
               applicationLegalese: "Deeptune From ryze.",
