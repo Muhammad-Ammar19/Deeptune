@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/page_view_main.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  AdManager.init();
   await _initHive();
   Get.put(PlayerController());
   await _requestPermission();

@@ -285,7 +285,7 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 Get.defaultDialog(
-                  title: 'Deeptune From ryze.',
+                  title: 'Deeptune from ryze.',
                   middleText:
                       'Deeptune is your ultimate music player for a seamless listening experience. Enjoy customizable playback, playlist management, offline mode, and cross-platform sync.',
                   radius: 10,
@@ -301,12 +301,13 @@ class CustomDrawer extends StatelessWidget {
               ),
               dense: true,
             ),
-             AboutDialog(
-              applicationIcon: ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(10)),
+            AboutDialog(
+              applicationIcon: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Image(
                   image: const AssetImage("assets/images/ryze_logo.png"),
-                  height: Get.height *0.06,
-                  width: Get.width *0.13,
+                  height: Get.height * 0.06,
+                  width: Get.width * 0.13,
                   fit: BoxFit.cover,
                   filterQuality: FilterQuality.high,
                 ),

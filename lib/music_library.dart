@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/favourites.dart';
 import 'package:deeptune_musicplayer/playlist_screen.dart';
@@ -17,6 +18,7 @@ class GridViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bannerAdWidget = AdManager.getBannerAdWidget();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -25,13 +27,12 @@ class GridViewPage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        width: double.infinity,
-        height: Get.height * 0.07,
-        child: const Center(
-          child: Text("Test Ad"),
-        ),
-      ),
+      bottomNavigationBar: bannerAdWidget != Container()
+          ? SizedBox(
+              height: Get.height * 0.06,
+              child: bannerAdWidget,
+            )
+          : null,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,29 +75,27 @@ class GridViewPage extends StatelessWidget {
                       'Recent',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                 
                   ],
                 ), // Recent Icon
-              Column(
-                children: [
-                  IconButton(
-                          onPressed: () {
-                            // Get.to(() =>  MostPlayedPage(),
-                            //     transition: Transition.fadeIn);
-                          },
-                          icon: const Icon(
-                            Icons.headphones_rounded,
-                            size: 40,
-                          ),
-                        ),
-               
-             const Text(
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // Get.to(() =>  MostPlayedPage(),
+                        //     transition: Transition.fadeIn);
+                      },
+                      icon: const Icon(
+                        Icons.headphones_rounded,
+                        size: 40,
+                      ),
+                    ),
+                    const Text(
                       'Most Played',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                ],
-              ),
-                    ],
+                  ],
+                ),
+              ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,6 +151,25 @@ class GridViewPage extends StatelessWidget {
                       'Favourites',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.download_done_rounded,
+                        size: 42,
+                      ),
+                    ),
+                    const Text(
+                      "Recent ",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const Text(
+                      'Downloads',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
                   ],
                 ),
               ],

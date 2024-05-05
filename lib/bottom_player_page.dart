@@ -45,149 +45,147 @@ class BottomMusicPlayerPage extends StatelessWidget {
           }
         },
         child: SingleChildScrollView(
-          child: Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: Get.height * 0.05),
-                // Song image
-                Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  elevation: 5,
-                  child: QueryArtworkWidget(
-                    id: currentSong.id,
-                    type: ArtworkType.AUDIO,
-                    artworkHeight: Get.height * 0.48,
-                    artworkFit: BoxFit.cover,
-                    artworkQuality: FilterQuality.high,
-                    artworkBorder: BorderRadius.circular(6),
-                    artworkWidth: double.infinity,
-                    quality: 100,
-                    nullArtworkWidget: const Icon(
-                      Icons.music_note_rounded,
-                      size: 405,
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: Get.height * 0.05),
+              // Song image
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                elevation: 5,
+                child: QueryArtworkWidget(
+                  id: currentSong.id,
+                  type: ArtworkType.AUDIO,
+                  artworkHeight: Get.height * 0.48,
+                  artworkFit: BoxFit.cover,
+                  artworkQuality: FilterQuality.high,
+                  artworkBorder: BorderRadius.circular(6),
+                  artworkWidth: double.infinity,
+                  quality: 100,
+                  nullArtworkWidget: const Icon(
+                    Icons.music_note_rounded,
+                    size: 405,
                   ),
                 ),
-                SizedBox(height: Get.height * 0.04),
-                ListTile(
-                  leading: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.playlist_add,
-                      size: 25,
-                    ),
-                  ),
-                  title: Text(
-                    currentSong.displayNameWOExt,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.clip,
-                  ),
-                  subtitle: Text(
-                    currentSong.artist ?? 'Unknown Artist',
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      // Toggle favorite status
-                    },
-                    icon: const Icon(Icons.favorite_outline_rounded),
+              ),
+              SizedBox(height: Get.height * 0.04),
+              ListTile(
+                leading: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.playlist_add,
+                    size: 25,
                   ),
                 ),
-                Obx(
-                  () => Slider(
-                    min: 0,
-                    max: controller.max.value.toDouble(),
-                    value: controller.value.value.toDouble(),
-                    onChanged: (newValue) {
-                      controller.changeDurationToSeconds(newValue.toInt());
-                    },
+                title: Text(
+                  currentSong.displayNameWOExt,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.clip,
                 ),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        controller.position.value,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                      const SizedBox(width: 310),
-                      Text(
-                        controller.duration.value,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                    ],
-                  ),
+                subtitle: Text(
+                  currentSong.artist ?? 'Unknown Artist',
+                  style: const TextStyle(fontSize: 12),
                 ),
-                Row(
+                trailing: IconButton(
+                  onPressed: () {
+                    // Toggle favorite status
+                  },
+                  icon: const Icon(Icons.favorite_outline_rounded),
+                ),
+              ),
+              Obx(
+                () => Slider(
+                  min: 0,
+                  max: controller.max.value.toDouble(),
+                  value: controller.value.value.toDouble(),
+                  onChanged: (newValue) {
+                    controller.changeDurationToSeconds(newValue.toInt());
+                  },
+                ),
+              ),
+              Obx(
+                () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.shuffle_rounded),
+                    Text(
+                      controller.position.value,
+                      style:
+                          const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        controller.rewind(10);
-                      },
-                      icon: const Icon(Icons.replay_10_rounded),
-                    ),
-                    IconButton(
-                      onPressed: () => _playPreviousSong(controller),
-                      icon: const Icon(
-                        Icons.skip_previous_rounded,
-                        size: 25,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        if (controller.isPlaying.value) {
-                          controller.pauseSong();
-                        } else {
-                          controller.resumeSong();
-                        }
-                      },
-                      icon: Obx(
-                        () => Icon(
-                          controller.isPlaying.value
-                              ? Icons.pause
-                              : Icons.play_arrow_rounded,
-                          size: 40,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () => _playNextSong(controller),
-                      icon: const Icon(
-                        Icons.skip_next_rounded,
-                        size: 28,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        controller.fastForward(10);
-                      },
-                      icon: const Icon(Icons.forward_10_rounded),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Get.to(() => const EqualizerPage(),
-                            transition: Transition.fadeIn);
-                      },
-                      icon: const Icon(Icons.equalizer_rounded),
+                    const SizedBox(width: 310),
+                    Text(
+                      controller.duration.value,
+                      style:
+                          const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.shuffle_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.rewind(10);
+                    },
+                    icon: const Icon(Icons.replay_10_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () => _playPreviousSong(controller),
+                    icon: const Icon(
+                      Icons.skip_previous_rounded,
+                      size: 25,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      if (controller.isPlaying.value) {
+                        controller.pauseSong();
+                      } else {
+                        controller.resumeSong();
+                      }
+                    },
+                    icon: Obx(
+                      () => Icon(
+                        controller.isPlaying.value
+                            ? Icons.pause
+                            : Icons.play_arrow_rounded,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => _playNextSong(controller),
+                    icon: const Icon(
+                      Icons.skip_next_rounded,
+                      size: 28,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      controller.fastForward(10);
+                    },
+                    icon: const Icon(Icons.forward_10_rounded),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Get.to(() => const EqualizerPage(),
+                          transition: Transition.fadeIn);
+                    },
+                    icon: const Icon(Icons.equalizer_rounded),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
