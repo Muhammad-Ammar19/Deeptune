@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
@@ -95,17 +97,26 @@ class SongPage extends StatelessWidget {
                           // Toggle favorite status
                         },
                         icon: const Icon(Icons.favorite_outline_rounded)),
-                  ),
-                  Obx(
-                    () => Slider(
-                      min: 0,
-                      max: controller.max.value.toDouble(),
-                      value: controller.value.value.toDouble(),
-                      onChanged: (newValue) {
-                        controller.changeDurationToSeconds(newValue.toInt());
-                      },
-                    ),
-                  ),
+                  ),Obx(
+  () => Slider(
+    min: 0,
+    max: controller.max.value.toDouble(),
+    value: min(max(0, controller.value.value.toDouble()), controller.max.value.toDouble()),
+    onChanged: (newValue) {
+      controller.changeDurationToSeconds(newValue.toInt());
+    },
+  ),
+),
+                  // Obx(
+                  //   () => Slider(
+                  //     min: 0,
+                  //     max: controller.max.value.toDouble(),
+                  //     value: controller.value.value.toDouble(),
+                  //     onChanged: (newValue) {
+                  //       controller.changeDurationToSeconds(newValue.toInt());
+                  //     },
+                  //   ),
+                  // ),
                   Obx(
                     () => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
