@@ -41,7 +41,7 @@ class BottomMusicPlayer extends StatelessWidget {
                     artworkHeight: Get.height * 0.06,
                     artworkFit: BoxFit.cover,
                     artworkQuality: FilterQuality.high,
-                    artworkBorder: BorderRadius.circular(6),
+                    artworkBorder: BorderRadius.circular(4),
                     artworkWidth: Get.height * 0.06,
                     quality: 100,
                     nullArtworkWidget: const Icon(

@@ -2,6 +2,7 @@ import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/favourites.dart';
 import 'package:deeptune_musicplayer/playlist_screen.dart';
+import 'package:deeptune_musicplayer/recent_downloads.dart';
 import 'package:deeptune_musicplayer/recent_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -156,7 +157,7 @@ class GridViewPage extends StatelessWidget {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {Get.to((const RecentDownloaded()),transition: Transition.fadeIn);},
                       icon: const Icon(
                         Icons.download_done_rounded,
                         size: 42,

@@ -16,7 +16,7 @@ class SongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-     final bannerAdWidget = AdManager.getBannerAdWidget();
+    
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity != 0) {
@@ -41,10 +41,7 @@ class SongPage extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
-        bottomNavigationBar: bannerAdWidget != Container() ? SizedBox(
-        height: Get.height * 0.06,
-        child: bannerAdWidget,
-      ) : null,
+        bottomNavigationBar:SizedBox(height: Get.height *0.06,child: const Placeholder(),),
         body: SafeArea(
           child: Obx(
             () => SingleChildScrollView(
