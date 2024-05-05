@@ -301,10 +301,19 @@ class CustomDrawer extends StatelessWidget {
               ),
               dense: true,
             ),
-            const AboutDialog(applicationIcon:Image(image: AssetImage("ryze_logo.png")) ,
+             AboutDialog(
+              applicationIcon: ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(10)),
+                child: Image(
+                  image: const AssetImage("assets/images/ryze_logo.png"),
+                  height: Get.height *0.06,
+                  width: Get.width *0.13,
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high,
+                ),
+              ),
               applicationVersion: "Version 1.0.0",
               applicationName: "Deeptune",
-              applicationLegalese: "Deeptune From ryze.",
+              applicationLegalese: "Deeptune from ryze.",
             ),
           ]),
     );
