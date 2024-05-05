@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class SongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-
+     final bannerAdWidget = AdManager.getBannerAdWidget();
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity != 0) {
@@ -33,17 +34,17 @@ class SongPage extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.more_vert_rounded))
+                onPressed: () {   AdManager.showInterstitialAd();    }, icon: const Icon(Icons.more_vert_rounded))
           ],
           title: const Text(
             "Now Playing",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
-        bottomNavigationBar: SizedBox(
-          height: Get.height * 0.05,
-          child: const Placeholder(),
-        ),
+        bottomNavigationBar: bannerAdWidget != Container() ? SizedBox(
+        height: Get.height * 0.06,
+        child: bannerAdWidget,
+      ) : null,
         body: SafeArea(
           child: Obx(
             () => SingleChildScrollView(

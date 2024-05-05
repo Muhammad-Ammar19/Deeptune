@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/main.dart';
@@ -193,7 +194,7 @@ class CustomDrawer extends StatelessWidget {
               dense: true,
             ),
             ListTile(
-              onTap: () {},
+              onTap: () { AdManager.showRewardedAd();},
               title: const Text(
                 "Chrome Cast",
                 style: TextStyle(

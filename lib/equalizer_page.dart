@@ -2,13 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:get/get.dart';
 
-class EqualizerPage extends StatelessWidget {
-  const EqualizerPage({super.key,});
+class EqualizerPage extends StatefulWidget {
+  const EqualizerPage({Key? key}) : super(key: key);
+
+  @override
+  State<EqualizerPage> createState() => _EqualizerPageState();
+}
+
+class _EqualizerPageState extends State<EqualizerPage> {
+  late Widget? bannerAdWidget;
+
+  @override
+  void initState() {
+    super.initState();
+    loadBannerAd();
+  }
+
+  void loadBannerAd() {
+    bannerAdWidget = AdManager.getBannerAdWidget();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final bannerAdWidget = AdManager.getBannerAdWidget();
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -20,15 +35,13 @@ class EqualizerPage extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_sharp))
         ],
       ),
-      bottomNavigationBar: bannerAdWidget != Container() ? SizedBox(
-        height: Get.height * 0.06,
-        child: bannerAdWidget,
-      ) : null,
+      bottomNavigationBar: bannerAdWidget != null
+          ? SizedBox(
+              height: Get.height * 0.06,
+              child: bannerAdWidget!,
+            )
+          : null,
       body: const SafeArea(child: Placeholder()),
     );
   }
 }
-
-
-
-
