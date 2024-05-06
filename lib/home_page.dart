@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                   Get.to(() => SearchList(), transition: Transition.fadeIn);
                 },
                 child: const Padding(
-                  padding: EdgeInsets.only(right: 11),
+                  padding: EdgeInsets.only(right: 18),
                   child: Icon(
                     Icons.search,
                     size: 25,
@@ -103,7 +103,7 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Song list",
+                      "Songs",
                       style: TextStyle(
                           fontFamily: "Monteserrat",
                           fontSize: 24,

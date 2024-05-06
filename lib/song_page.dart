@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';

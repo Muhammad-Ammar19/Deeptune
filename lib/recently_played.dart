@@ -34,11 +34,12 @@ class RecentlyPlayed extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     // Play the tapped song
+                    
                     controller.playSong(song.uri, index);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Card(
                           elevation: 4,
@@ -58,7 +59,7 @@ class RecentlyPlayed extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          song.artist ?? 'Unknown Artist',
+                          song.artist ?? 'Unknown Artist',maxLines: 1,overflow: TextOverflow.clip,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,

@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class AllSongsPage extends StatelessWidget {
-  const AllSongsPage({super.key});
+
+class RecentPlayPage extends StatelessWidget {
+  const RecentPlayPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ class RecentDownloaded extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Recently Downloaded",
+          "Recent Downloads",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),

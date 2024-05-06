@@ -1,7 +1,9 @@
+import 'package:deeptune_musicplayer/search_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:deeptune_musicplayer/song_page.dart';
 
 class RecentPage extends StatelessWidget {
   const RecentPage({Key? key}) : super(key: key);
@@ -12,9 +14,22 @@ class RecentPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          GestureDetector(
+              onTap: () {
+                Get.to(() => SearchList(), transition: Transition.fadeIn);
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 18),
+                child: Icon(
+                  Icons.search,
+                  size: 25,
+                ),
+              ))
+        ],
         title: const Text(
           'Recent',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -57,8 +72,11 @@ class RecentPage extends StatelessWidget {
                       onTap: () {
                         // Play the tapped song
                         controller.playSong(song.uri, index);
-                        // Navigate back to the previous page
-                        Navigator.pop(context);
+                        // Navigate to the song page
+                        Get.to(
+                            () =>
+                                SongPage(data: controller.recentlyPlayedSongs),
+                            transition: Transition.fadeIn);
                       },
                     );
                   },
@@ -68,4 +86,3 @@ class RecentPage extends StatelessWidget {
     );
   }
 }
-
