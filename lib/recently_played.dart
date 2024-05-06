@@ -65,8 +65,8 @@ class RecentlyPlayed extends StatelessWidget {
                         ),
                         Text(
                           song.artist != null
-                              ? (song.artist!.length > 11
-                                  ? song.artist!.substring(0, 17)
+                              ? (song.artist!.length > 18
+                                  ? song.artist!.substring(0, 18)
                                   : song.artist!)
                               : 'Unknown Artist',
                           maxLines: 1,

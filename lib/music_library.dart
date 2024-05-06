@@ -56,7 +56,7 @@ class GridViewPage extends StatelessWidget {
                     ),
                     const Text(
                       'Playlists',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.5),
                     ),
                   ],
                 ),
@@ -74,7 +74,7 @@ class GridViewPage extends StatelessWidget {
                     ),
                     const Text(
                       'Recent',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                     ),
                   ],
                 ), // Recent Icon
@@ -92,7 +92,7 @@ class GridViewPage extends StatelessWidget {
                     ),
                     const Text(
                       'Most Played',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.5),
                     ),
                   ],
                 ),
@@ -116,7 +116,7 @@ class GridViewPage extends StatelessWidget {
                     ),
                     const Text(
                       'All Songs',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                     ),
                     FutureBuilder<int>(
                       future: getTotalSongs(),
@@ -128,7 +128,7 @@ class GridViewPage extends StatelessWidget {
                           return Text('Error: ${snapshot.error}');
                         } else {
                           return Text(
-                            '${snapshot.data} Songs',
+                            '${snapshot.data} Tracks',
                             style: const TextStyle(fontSize: 11),
                           );
                         }
@@ -150,7 +150,7 @@ class GridViewPage extends StatelessWidget {
                     ),
                     const Text(
                       'Favourites',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.5),
                     ),
                   ],
                 ),
@@ -165,11 +165,11 @@ class GridViewPage extends StatelessWidget {
                     ),
                     const Text(
                       "Recent ",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.5),
                     ),
                     const Text(
                       'Downloads',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.5),
                     )
                   ],
                 ),
