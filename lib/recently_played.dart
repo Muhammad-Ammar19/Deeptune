@@ -28,18 +28,23 @@ class RecentlyPlayed extends StatelessWidget {
             // Show recently played songs
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: controller.recentlyPlayedSongs.length,
+              itemCount: controller.recentlyPlayedSongs.length > 4
+                  ? 4
+                  : controller
+                      .recentlyPlayedSongs.length, // Limit to 4 recent songs
               itemBuilder: (context, index) {
                 var song = controller.recentlyPlayedSongs[index];
                 return GestureDetector(
                   onTap: () {
                     // Play the tapped song
-                    
+
                     controller.playSong(song.uri, index);
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Card(
                           elevation: 4,
@@ -54,12 +59,18 @@ class RecentlyPlayed extends StatelessWidget {
                             quality: 100,
                             nullArtworkWidget: const Icon(
                               Icons.music_note_rounded,
-                              size: 59,
+                              size: 62,
                             ),
                           ),
                         ),
                         Text(
-                          song.artist ?? 'Unknown Artist',maxLines: 1,overflow: TextOverflow.clip,
+                          song.artist != null
+                              ? (song.artist!.length > 11
+                                  ? song.artist!.substring(0, 17)
+                                  : song.artist!)
+                              : 'Unknown Artist',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
