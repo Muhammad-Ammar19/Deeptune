@@ -79,9 +79,7 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(const RecentPage(),
-                            transition: Transition.fadeIn);
-                      },
+               Get.to(() => const RecentPage());     },
                       child: const Text(
                         "See all >",
                         style: TextStyle(
