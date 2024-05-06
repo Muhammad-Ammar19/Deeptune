@@ -17,7 +17,7 @@ class SearchList extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           'Search Songs',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       body: SafeArea(

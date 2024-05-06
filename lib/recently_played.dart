@@ -59,7 +59,7 @@ class RecentlyPlayed extends StatelessWidget {
                             quality: 100,
                             nullArtworkWidget: const Icon(
                               Icons.music_note_rounded,
-                              size: 62,
+                              size: 67,
                             ),
                           ),
                         ),

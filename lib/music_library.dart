@@ -25,7 +25,7 @@ class GridViewPage extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           "Music Library",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       bottomNavigationBar: bannerAdWidget != Container()
