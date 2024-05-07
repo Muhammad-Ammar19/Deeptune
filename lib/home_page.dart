@@ -79,7 +79,9 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-               Get.to(() => const RecentPage());     },
+                        Get.to(() => const RecentPage(),
+                            transition: Transition.fadeIn);
+                      },
                       child: const Text(
                         "See all >",
                         style: TextStyle(
@@ -192,7 +194,9 @@ class CustomDrawer extends StatelessWidget {
               dense: true,
             ),
             ListTile(
-              onTap: () { AdManager.showRewardedAd();},
+              onTap: () {
+                AdManager.showRewardedAd();
+              },
               title: const Text(
                 "Chrome Cast",
                 style: TextStyle(
