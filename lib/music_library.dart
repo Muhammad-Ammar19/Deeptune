@@ -157,7 +157,7 @@ class GridViewPage extends StatelessWidget {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {Get.to(() => const RecentDownloaded(),transition: Transition.fadeIn);},
+                      onPressed: () {Get.to(() => RecentDownloaded(),transition: Transition.fadeIn);},
                       icon: const Icon(
                         Icons.download_done_rounded,
                         size: 42,

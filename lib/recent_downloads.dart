@@ -6,20 +6,19 @@ import 'package:deeptune_musicplayer/song_page.dart';
 
 
 class RecentDownloaded extends StatelessWidget {
-  const RecentDownloaded({
-    Key? key,
-  }) : super(key: key);
+   RecentDownloaded({Key? key}) : super(key: key);
+   final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     final PlayerController controller = Get.put(PlayerController());
-
+   
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
           "Recent Downloads",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
       body: FutureBuilder<List<SongModel>>(
@@ -38,53 +37,70 @@ class RecentDownloaded extends StatelessWidget {
               child: Text("No songs were found."),
             );
           } else {
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                final SongModel song = snapshot.data![index];
-                return ListTile(
-                  leading: Card(
-                    elevation: 4,
-                    child: QueryArtworkWidget(
-                      id: song.id,
-                      type: ArtworkType.AUDIO,
-                      nullArtworkWidget: const Icon(
-                        Icons.music_note_rounded,
-                        size: 50,
+            return Scrollbar(
+              thickness: 8,
+              trackVisibility: true,
+              interactive: true, // Enable interactive scrollbar
+              controller: _scrollController,
+              child: ListView.builder(
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final SongModel song = snapshot.data![index];
+                  return ListTile(
+                    leading: Card(
+                      elevation: 4,
+                      child: QueryArtworkWidget(
+                        id: song.id,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget: const Icon(
+                          Icons.music_note_rounded,
+                          size: 50,
+                        ),
+                        artworkFit: BoxFit.cover,
+                        artworkBorder: const BorderRadius.all(Radius.circular(4)),
                       ),
-                      artworkFit: BoxFit.cover,
-                      artworkBorder: const BorderRadius.all(Radius.circular(4)),
                     ),
-                  ),
-                  title: Text(
-                    song.title,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
+                    title: Text(
+                      song.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    song.artist ?? 'Unknown Artist',
-                    style: const TextStyle(fontSize: 11),
-                  ),
-                  trailing: controller.playIndex.value == index && controller.isPlaying.value
-                      ? const Icon(Icons.play_arrow_rounded)
-                      : null,
-                  onTap: () {
-                    controller.playSong(song.uri, index);
-                    controller.updateSelectedSong(song);
-                    Get.to(() => SongPage(data: snapshot.data!),
-                      transition: Transition.fadeIn,
-                    );
-                  },
-                );
-              },
+                    subtitle: Text(
+                      song.artist ?? 'Unknown Artist',
+                      style: const TextStyle(fontSize: 11),
+                    ),
+                    trailing: controller.playIndex.value == index && controller.isPlaying.value
+                        ? const Icon(Icons.play_arrow_rounded)
+                        : null,
+                    onTap: () {
+                      controller.playSong(song.uri, index);
+                      controller.updateSelectedSong(song);
+                      Get.to(() => SongPage(data: snapshot.data!),
+                        transition: Transition.fadeIn,
+                      );
+                    },
+                  );
+                },
+              ),
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        },
+        child: const Icon(Icons.arrow_upward),
       ),
     );
   }
@@ -100,4 +116,3 @@ class RecentDownloaded extends StatelessWidget {
     return songs;
   }
 }
-
