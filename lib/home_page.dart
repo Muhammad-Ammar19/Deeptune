@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                     height: Get.height * 0.2,
                     child: DropShadowImage(
                       image: Image.asset(
-                        "assets/images/cover.jpg",
+                        "assets/images/album_cover.jpg",
                         filterQuality: FilterQuality.high,
                         fit: BoxFit.cover,
                         width: double.infinity,
