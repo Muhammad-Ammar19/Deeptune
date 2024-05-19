@@ -91,12 +91,20 @@ class SongPage extends StatelessWidget {
                           'Unknown Artist',
                       style: const TextStyle(fontSize: 12),
                     ),
-                    trailing: IconButton(
+                   trailing: Obx(() => IconButton(
                         onPressed: () {
-                          // Toggle favorite status
+                          controller.toggleFavorite(data[controller.playIndex.value]);
                         },
-                        icon: const Icon(Icons.favorite_outline_rounded)),
-                  ),Obx(
+                        icon: Icon(
+                          controller.isFavorite(data[controller.playIndex.value])
+                              ? Icons.favorite
+                              : Icons.favorite_outline_rounded,
+                        ))),
+                  ),
+                  
+                  
+                  
+                  Obx(
   () => Slider(
     min: 0,
     max: controller.max.value.toDouble(),

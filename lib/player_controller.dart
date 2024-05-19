@@ -16,6 +16,10 @@ class PlayerController extends GetxController {
   var position = ''.obs;
   final searchResults = <SongModel>[].obs;
   final recentlyPlayedSongs = <SongModel>[].obs;
+  var favoriteSongs = <SongModel>[].obs; // List to store favorite songs
+  var playCounts = <int, int>{}.obs; // Map to store play counts
+
+  
 
   void updateSelectedSong(SongModel data) {
     // song changed to data
@@ -25,8 +29,7 @@ class PlayerController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    // checkPermission();
+  // checkPermission();
     initAudioPlayerListeners();
   }
 
@@ -257,4 +260,48 @@ class PlayerController extends GetxController {
       checkPermission();
     }
   }
+
+// Method to toggle favorite status
+  void toggleFavorite(SongModel song) {
+    if (isFavorite(song)) {
+      favoriteSongs.remove(song);
+      Get.snackbar("Removed", "${song.displayNameWOExt} removed from favorites");
+    } else {
+      favoriteSongs.add(song);
+      Get.snackbar("Added", "${song.displayNameWOExt} added to favorites");
+    }
+  }
+
+  // Method to check if a song is favorite
+  bool isFavorite(SongModel song) {
+    return favoriteSongs.contains(song);
+  }
+
+
+
+    // Method to increment play count
+  void _incrementPlayCount(int songId) {
+    if (playCounts.containsKey(songId)) {
+      playCounts[songId] = playCounts[songId]! + 1;
+    } else {
+      playCounts[songId] = 1;
+    }
+  }
+
+  // Method to get most played songs
+  List<SongModel> getMostPlayedSongs(List<SongModel> songs) {
+    songs.sort((a, b) => (playCounts[b.id] ?? 0).compareTo(playCounts[a.id] ?? 0));
+    return songs;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+

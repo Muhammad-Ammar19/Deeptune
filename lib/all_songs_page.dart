@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AllSongsPage extends StatelessWidget {
-  const AllSongsPage({Key? key});
+   const AllSongsPage({super.key,});
 
   @override
   Widget build(BuildContext context) {
