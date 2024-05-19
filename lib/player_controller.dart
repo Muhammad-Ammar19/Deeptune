@@ -17,6 +17,9 @@ class PlayerController extends GetxController {
   final searchResults = <SongModel>[].obs;
   final recentlyPlayedSongs = <SongModel>[].obs;
   var favoriteSongs = <SongModel>[].obs; // List to store favorite songs
+  var isLooping = false.obs;
+  var isShuffling = false.obs;
+  var isRepeating = false.obs;
 
 
   void updateSelectedSong(SongModel data) {
@@ -275,5 +278,41 @@ class PlayerController extends GetxController {
   // Method to check if a song is favorite
   bool isFavorite(SongModel song) {
     return favoriteSongs.contains(song);
+  }
+
+   void toggleLoop() {
+    if (isLooping.value) {
+      isLooping(false);
+      Get.snackbar('Loop', 'Loop Off');
+    } else {
+      isLooping(true);
+      isShuffling(false);
+      isRepeating(false);
+      Get.snackbar('Loop', 'Loop On');
+    }
+  }
+
+  void toggleShuffle() {
+    if (isShuffling.value) {
+      isShuffling(false);
+      Get.snackbar('Shuffle', 'Shuffle Off');
+    } else {
+      isShuffling(true);
+      isLooping(false);
+      isRepeating(false);
+      Get.snackbar('Shuffle', 'Shuffle On');
+    }
+  }
+
+  void toggleRepeat() {
+    if (isRepeating.value) {
+      isRepeating(false);
+      Get.snackbar('Repeat', 'Repeat Off');
+    } else {
+      isRepeating(true);
+      isLooping(false);
+      isShuffling(false);
+      Get.snackbar('Repeat', 'Repeat On');
+    }
   }
 }

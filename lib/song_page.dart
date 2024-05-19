@@ -145,10 +145,34 @@ class SongPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                              Icons.shuffle_rounded)), // Reapeat, Loop, Shuffle
+                        IconButton(
+                        onPressed: () {
+                          if (!controller.isLooping.value && !controller.isShuffling.value && !controller.isRepeating.value) {
+                            controller.toggleLoop();
+                           
+                          } else if (controller.isLooping.value) {
+                            controller.toggleShuffle();
+                           
+                          } else if (controller.isShuffling.value) {
+                            controller.toggleRepeat();
+                           
+                          } else {
+                            controller.toggleLoop();
+                          
+                          }
+                        },
+                        icon: Obx(() {
+                          if (controller.isLooping.value) {
+                            return const Icon(Icons.loop_rounded);
+                          } else if (controller.isShuffling.value) {
+                            return const Icon(Icons.shuffle_rounded);
+                          } else if (controller.isRepeating.value) {
+                            return const Icon(Icons.repeat_rounded);
+                          } else {
+                            return const Icon(Icons.loop_rounded); // Default to loop icon
+                          }
+                        }),
+                      ), // Reapeat, Loop, Shuffle
                       IconButton(
                           onPressed: () {
                             controller.rewind(10); // Rewind button
@@ -206,7 +230,7 @@ class SongPage extends StatelessWidget {
                           },
                           icon: const Icon(Icons.forward_10_rounded)),
                       IconButton(
-                        //Equalizer Button
+                        //Equalizer Buttonfsn
 
                         onPressed: () {
                           Get.to(() => const EqualizerPage(),
