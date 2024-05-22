@@ -14,7 +14,7 @@ class RecentPlayPage extends StatelessWidget {
     var controller = Get.put(PlayerController());
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         actions: [
           GestureDetector(
               onTap: () {

@@ -13,7 +13,7 @@ class SearchList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(bottomNavigationBar: const BottomMusicPlayer(),
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         centerTitle: true,
         title: const Text(
           'Search Songs',

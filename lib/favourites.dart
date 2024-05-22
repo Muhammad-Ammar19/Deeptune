@@ -12,7 +12,7 @@ class FavouritesPage extends StatelessWidget {
     var controller = Get.find<PlayerController>();
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         title: const Text(
           'Favourites',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

@@ -6,7 +6,7 @@ class PlaylistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         title: const Text(
           'Playlist',
           style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),

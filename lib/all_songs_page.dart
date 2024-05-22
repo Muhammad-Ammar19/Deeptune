@@ -14,7 +14,7 @@ class AllSongsPage extends StatelessWidget {
     final ScrollController _scrollController = ScrollController();
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         actions: [
           GestureDetector(
             onTap: () {

@@ -14,7 +14,7 @@ class RecentDownloaded extends StatelessWidget {
     final PlayerController controller = Get.put(PlayerController());
    
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         centerTitle: true,
         title: const Text(
           "Recent Downloads",

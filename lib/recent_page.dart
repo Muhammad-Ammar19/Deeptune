@@ -13,7 +13,7 @@ class RecentPage extends StatelessWidget {
     final controller = Get.find<PlayerController>();
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(forceMaterialTransparency: true,
         actions: [
           GestureDetector(
               onTap: () {
