@@ -37,7 +37,7 @@ class RecentlyPlayed extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     // Play the tapped song
-
+                    controller.updateSelectedSong(song); // Ensure this is called
                     controller.playSong(song.uri, index);
                   },
                   child: Padding(

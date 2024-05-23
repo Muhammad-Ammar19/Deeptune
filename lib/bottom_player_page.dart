@@ -191,20 +191,21 @@ class BottomMusicPlayerPage extends StatelessWidget {
       ),
     );
   }
-
-  void _playPreviousSong(PlayerController controller) {
-    int prevIndex = controller.playIndex.value - 1;
-    if (prevIndex < 0) {
-      prevIndex = controller.searchResults.length - 1;
-    }
-    controller.playSong(controller.searchResults[prevIndex].uri, prevIndex);
+void _playPreviousSong(PlayerController controller) {
+  int prevIndex = controller.playIndex.value - 1;
+  if (prevIndex < 0) {
+    prevIndex = controller.recentlyPlayedSongs.length - 1;
   }
+  controller.playIndex.value = prevIndex; // Update the playIndex value
+  controller.playSong(controller.recentlyPlayedSongs[prevIndex].uri, prevIndex);
+}
 
-  void _playNextSong(PlayerController controller) {
-    int nextIndex = controller.playIndex.value + 1;
-    if (nextIndex >= controller.searchResults.length) {
-      nextIndex = 0;
-    }
-    controller.playSong(controller.searchResults[nextIndex].uri, nextIndex);
+void _playNextSong(PlayerController controller) {
+  int nextIndex = controller.playIndex.value + 1;
+  if (nextIndex >= controller.recentlyPlayedSongs.length) {
+    nextIndex = 0;
   }
+  controller.playIndex.value = nextIndex; // Update the playIndex value
+  controller.playSong(controller.recentlyPlayedSongs[nextIndex].uri, nextIndex);
+}
 }

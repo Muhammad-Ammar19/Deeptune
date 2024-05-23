@@ -34,7 +34,8 @@ class PlayerController extends GetxController {
     super.onInit();
     // checkPermission();
    initAudioPlayerListeners(); 
-   loadFavoriteSongs(); // Load favorite songs when the controller is initialized
+   loadFavoriteSongs();
+   loadRecentlyPlayedSongs(); // Load recently played songs when the controller is initialized // Load favorite songs when the controller is initialized
   }
  // Method to save favorite songs to local storage
   Future<void> saveFavoriteSongs() async {
@@ -118,7 +119,7 @@ class PlayerController extends GetxController {
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
       audioPlayer.play();
       isPlaying.value = true;
-
+      updateSelectedSong(searchResults[index]);
       // Check if the song is already in the recently played list
       bool alreadyPlayed =
           recentlyPlayedSongs.any((song) => song.id == searchResults[index].id);
@@ -131,7 +132,7 @@ class PlayerController extends GetxController {
         if (recentlyPlayedSongs.length > 100) {
           recentlyPlayedSongs.removeLast();
         }
-
+ saveRecentlyPlayedSongs(); // Save the recently played songs to local storage
         // Save the recently played songs to local storage
       }
     } catch (e) {
@@ -336,5 +337,20 @@ class PlayerController extends GetxController {
       isShuffling(false);
       Get.snackbar('Repeat', 'Repeat On');
     }
+  }Future<void> saveRecentlyPlayedSongs() async {
+  final prefs = await SharedPreferences.getInstance();
+  final songIds = recentlyPlayedSongs.map((song) => song.id).toList();
+  prefs.setStringList('recentlyPlayedSongs', songIds.map((id) => id.toString()).toList());
+}
+Future<void> loadRecentlyPlayedSongs() async {
+  final prefs = await SharedPreferences.getInstance();
+  final songIds = prefs.getStringList('recentlyPlayedSongs');
+  if (songIds != null) {
+    final songs = await audioquery.querySongs(
+      sortType: SongSortType.TITLE,
+      uriType: UriType.EXTERNAL,
+    );
+    recentlyPlayedSongs.assignAll(songs.where((song) => songIds.contains(song.id.toString())).toList());
   }
+}
 }
