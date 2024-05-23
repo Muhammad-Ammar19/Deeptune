@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PlayerController extends GetxController {
@@ -33,8 +34,27 @@ class PlayerController extends GetxController {
     super.onInit();
     // checkPermission();
    initAudioPlayerListeners(); 
+   loadFavoriteSongs(); // Load favorite songs when the controller is initialized
   }
- 
+ // Method to save favorite songs to local storage
+  Future<void> saveFavoriteSongs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final songIds = favoriteSongs.map((song) => song.id).toList();
+    prefs.setStringList('favoriteSongs', songIds.map((id) => id.toString()).toList());
+  }
+
+  // Method to load favorite songs from local storage
+  Future<void> loadFavoriteSongs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final songIds = prefs.getStringList('favoriteSongs');
+    if (songIds != null) {
+      final songs = await audioquery.querySongs(
+        sortType: SongSortType.TITLE,
+        uriType: UriType.EXTERNAL,
+      );
+      favoriteSongs.assignAll(songs.where((song) => songIds.contains(song.id.toString())).toList());
+    }
+  }
 
 // Rewind Code
   void rewind(int seconds) {
@@ -274,7 +294,7 @@ class PlayerController extends GetxController {
       favoriteSongs.add(song);
 
       Get.snackbar("Added", "${song.displayNameWOExt} added to favorites");
-    }
+    }saveFavoriteSongs(); // Save favorite songs whenever the list is updated
   }
 
   // Method to check if a song is favorite

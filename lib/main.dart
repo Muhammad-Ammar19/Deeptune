@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
+  await MobileAds.instance.initialize();
   AdManager.init();
   await _initHive();
   Get.put(PlayerController());
