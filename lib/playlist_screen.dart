@@ -8,8 +8,8 @@ class PlaylistScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(forceMaterialTransparency: true,
         title: const Text(
-          'Playlist',
-          style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),
+          'Playlists',
+          style: TextStyle(fontSize:21, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
