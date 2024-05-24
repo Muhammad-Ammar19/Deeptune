@@ -6,6 +6,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class BottomMusicPlayerPage extends StatelessWidget {
   final PlayerController controller = Get.find<PlayerController>();
+  
 
   BottomMusicPlayerPage({Key? key}) : super(key: key);
 
@@ -17,21 +18,21 @@ class BottomMusicPlayerPage extends StatelessWidget {
       return const Scaffold(
           body: Center(child: Text('No song is currently playing')));
     }
-
+    double iconSize = Get.width * 0.06; // Adjust the icon size based on screen width
+    double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
+    double artworkHeight = Get.height * 0.50; // Artwork height based on screen height
+    double artworkWidth = Get.width * 1.0; // Artwork width based on screen width
+    double paddingSize = Get.width * 0.02; // Padding size based on screen width
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: Get.height * 0.05,
-        child: const Placeholder(),
-      ),
       appBar: AppBar(
         actions: [
           IconButton(
               onPressed: () {}, icon: const Icon(Icons.more_vert_rounded))
         ],
         centerTitle: true,
-        title: const Text(
+        title:  Text(
           "Now Playing",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: fontSize * 1.1, fontWeight: FontWeight.bold),
         ),
       ),
       body: GestureDetector(
@@ -45,147 +46,150 @@ class BottomMusicPlayerPage extends StatelessWidget {
           }
         },
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: Get.height * 0.05),
-              // Song image
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                elevation: 5,
-                child: QueryArtworkWidget(
-                  id: currentSong.id,
-                  type: ArtworkType.AUDIO,
-                  artworkHeight: Get.height * 0.48,
-                  artworkFit: BoxFit.cover,
-                  artworkQuality: FilterQuality.high,
-                  artworkBorder: BorderRadius.circular(6),
-                  artworkWidth: double.infinity,
-                  quality: 100,
-                  nullArtworkWidget: const Icon(
-                    Icons.music_note_rounded,
-                    size: 405,
-                  ),
-                ),
-              ),
-              SizedBox(height: Get.height * 0.04),
-              ListTile(
-                leading: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.playlist_add,
-                    size: 25,
-                  ),
-                ),
-                title: Text(
-                  currentSong.displayNameWOExt,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.clip,
-                ),
-                subtitle: Text(
-                  currentSong.artist ?? 'Unknown Artist',
-                  style: const TextStyle(fontSize: 12),
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    // Toggle favorite status
-                  },
-                  icon: const Icon(Icons.favorite_outline_rounded),
-                ),
-              ),
-              Obx(
-                () => Slider(
-                  min: 0,
-                  max: controller.max.value.toDouble(),
-                  value: controller.value.value.toDouble(),
-                  onChanged: (newValue) {
-                    controller.changeDurationToSeconds(newValue.toInt());
-                  },
-                ),
-              ),
-              Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      controller.position.value,
-                      style:
-                          const TextStyle(color: Colors.grey, fontSize: 12),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: paddingSize),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: Get.height * 0.05),
+                // Song image
+                Card(
+                 margin: EdgeInsets.symmetric(horizontal: paddingSize),
+                  elevation: 5,
+                  child: QueryArtworkWidget(
+                    id: currentSong.id,
+                    type: ArtworkType.AUDIO,
+                    artworkHeight: Get.height * 0.48,
+                    artworkFit: BoxFit.cover,
+                    artworkQuality: FilterQuality.high,
+                    artworkBorder: BorderRadius.circular(6),
+                    artworkWidth: artworkWidth,
+                    quality: 100,
+                    nullArtworkWidget: Icon(
+                      Icons.music_note_rounded,
+                      size: artworkHeight,
                     ),
-                    const SizedBox(width: 310),
-                    Text(
-                      controller.duration.value,
-                      style:
-                          const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
+                SizedBox(height: Get.height * 0.07),
+                ListTile(
+                  leading: IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.shuffle_rounded),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      controller.rewind(10);
-                    },
-                    icon: const Icon(Icons.replay_10_rounded),
-                  ),
-                  IconButton(
-                    onPressed: () => _playPreviousSong(controller),
                     icon: const Icon(
-                      Icons.skip_previous_rounded,
+                      Icons.playlist_add,
                       size: 25,
                     ),
                   ),
-                  IconButton(
+                  title: Text(
+                    currentSong.displayNameWOExt,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                     fontSize: fontSize *0.94,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                  ),
+                  subtitle: Text(
+                    currentSong.artist ?? 'Unknown Artist',
+                    style:  TextStyle(fontSize: fontSize * 0.7),
+                  ),
+                  trailing: IconButton(
                     onPressed: () {
-                      if (controller.isPlaying.value) {
-                        controller.pauseSong();
-                      } else {
-                        controller.resumeSong();
-                      }
+                      // Toggle favorite status
                     },
-                    icon: Obx(
-                      () => Icon(
-                        controller.isPlaying.value
-                            ? Icons.pause
-                            : Icons.play_arrow_rounded,
-                        size: 40,
+                    icon: const Icon(Icons.favorite_outline_rounded),
+                  ),
+                ),
+                Obx(
+                  () => Slider(
+                    min: 0,
+                    max: controller.max.value.toDouble(),
+                    value: controller.value.value.toDouble(),
+                    onChanged: (newValue) {
+                      controller.changeDurationToSeconds(newValue.toInt());
+                    },
+                  ),
+                ),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        controller.position.value,
+                        style:
+                             TextStyle(color: Colors.grey,fontSize: fontSize * 0.7),
+                      ),
+                      const SizedBox(width: 310),
+                      Text(
+                        controller.duration.value,
+                        style:
+                             TextStyle(color: Colors.grey, fontSize: fontSize * 0.7),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.shuffle_rounded),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        controller.rewind(10);
+                      },
+                      icon:  Icon(Icons.replay_10_rounded,size: iconSize),
+                    ),
+                    IconButton(
+                      onPressed: () => _playPreviousSong(controller),
+                      icon:  Icon(
+                        Icons.skip_previous_rounded,
+                        size: iconSize,
                       ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () => _playNextSong(controller),
-                    icon: const Icon(
-                      Icons.skip_next_rounded,
-                      size: 28,
+                    IconButton(
+                      onPressed: () {
+                        if (controller.isPlaying.value) {
+                          controller.pauseSong();
+                        } else {
+                          controller.resumeSong();
+                        }
+                      },
+                      icon: Obx(
+                        () => Icon(
+                          controller.isPlaying.value
+                              ? Icons.pause
+                              : Icons.play_arrow_rounded,
+                          size: iconSize * 1.5,
+                        ),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      controller.fastForward(10);
-                    },
-                    icon: const Icon(Icons.forward_10_rounded),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Get.to(() => const EqualizerPage(),
-                          transition: Transition.fadeIn);
-                    },
-                    icon: const Icon(Icons.equalizer_rounded),
-                  ),
-                ],
-              ),
-            ],
+                    IconButton(
+                      onPressed: () => _playNextSong(controller),
+                      icon:  Icon(
+                        Icons.skip_next_rounded,
+                         size: iconSize * 1.4,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        controller.fastForward(10);
+                      },
+                      icon:  Icon(Icons.forward_10_rounded,size: iconSize),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Get.to(() => const EqualizerPage(),
+                            transition: Transition.fadeIn);
+                      },
+                      icon: const Icon(Icons.equalizer_rounded),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
