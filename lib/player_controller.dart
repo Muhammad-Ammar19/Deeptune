@@ -353,5 +353,8 @@ Future<void> loadRecentlyPlayedSongs() async {
     recentlyPlayedSongs.assignAll(songs.where((song) => songIds.contains(song.id.toString())).toList());
   }
 }
+int getFavoriteSongsCount() {
+    return favoriteSongs.length;
+  }
 }
 //ammar

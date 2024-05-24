@@ -1,12 +1,14 @@
 import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/favourites.dart';
+import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:deeptune_musicplayer/playlist_screen.dart';
 import 'package:deeptune_musicplayer/recent_downloads.dart';
 import 'package:deeptune_musicplayer/recent_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+
 
 class GridViewPage extends StatelessWidget {
   const GridViewPage({super.key});
@@ -19,13 +21,18 @@ class GridViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PlayerController playerController = Get.find<PlayerController>(); // Get the PlayerController instance
     final bannerAdWidget = AdManager.getBannerAdWidget();
+
+    double iconSize = Get.width * 0.1; // Adjust the icon size based on screen width
+    double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
+        title: Text(
           "Music Library",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize * 1.2),
         ),
       ),
       bottomNavigationBar: bannerAdWidget != Container()
@@ -46,17 +53,16 @@ class GridViewPage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => const PlaylistScreen(),
-                            transition: Transition.fadeIn);
+                        Get.to(() => const PlaylistScreen(), transition: Transition.fadeIn);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.playlist_add_check_rounded, // Playlist Icon
-                        size: 40,
+                        size: iconSize,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Playlists',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.5),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize),
                     ),
                   ],
                 ),
@@ -64,17 +70,16 @@ class GridViewPage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => const RecentPage(),
-                            transition: Transition.fadeIn);
+                        Get.to(() => const RecentPage(), transition: Transition.fadeIn);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.music_video_rounded,
-                        size: 40,
+                        size: iconSize,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Recent',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize),
                     ),
                   ],
                 ), // Recent Icon
@@ -85,14 +90,14 @@ class GridViewPage extends StatelessWidget {
                         // Get.to(() =>  MostPlayedPage(),
                         //     transition: Transition.fadeIn);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.headphones_rounded,
-                        size: 40,
+                        size: iconSize,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Most Played',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.5),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize * 0.9),
                     ),
                   ],
                 ),
@@ -106,30 +111,28 @@ class GridViewPage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => const AllSongsPage(),
-                            transition: Transition.fadeIn);
+                        Get.to(() => const AllSongsPage(), transition: Transition.fadeIn);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.music_note_rounded,
-                        size: 40,
+                        size: iconSize,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'All Songs',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize),
                     ),
                     FutureBuilder<int>(
                       future: getTotalSongs(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
                           return Text(
                             '${snapshot.data} Tracks',
-                            style: const TextStyle(fontSize: 11),
+                            style: TextStyle(fontSize: fontSize * 0.7),
                           );
                         }
                       },
@@ -140,37 +143,45 @@ class GridViewPage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => const FavouritesPage(),
-                            transition: Transition.fadeIn);
+                        Get.to(() => const FavouritesPage(), transition: Transition.fadeIn);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.favorite,
-                        size: 40,
+                        size: iconSize,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Favourites',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.5),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize),
                     ),
+                    Obx(() {
+                      final favoriteCount = playerController.favoriteSongs.length;
+                      return Text(
+                        '$favoriteCount Favorites',
+                        style: TextStyle(fontSize: fontSize * 0.7),
+                      );
+                    }),
                   ],
                 ),
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {Get.to(() => RecentDownloaded(),transition: Transition.fadeIn);},
-                      icon: const Icon(
+                      onPressed: () {
+                        Get.to(() => RecentDownloaded(), transition: Transition.fadeIn);
+                      },
+                      icon: Icon(
                         Icons.download_done_rounded,
-                        size: 42,
+                        size: iconSize * 1.05,
                       ),
                     ),
-                    const Text(
+                    Text(
                       "Recent ",
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.5),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize * 0.9),
                     ),
-                    const Text(
+                    Text(
                       'Downloads',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15.5),
-                    )
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize * 0.9),
+                    ),
                   ],
                 ),
               ],
