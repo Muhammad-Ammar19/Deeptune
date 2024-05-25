@@ -26,7 +26,7 @@ class BottomMusicPlayer extends StatelessWidget {
         return Card(
           elevation: 4,
           child: Container(
-            height: Get.height * 0.08,
+            height: Get.height * 0.09,
             width: double.infinity,
             padding:  EdgeInsets.only(right: paddingSize),
             child: Row(
