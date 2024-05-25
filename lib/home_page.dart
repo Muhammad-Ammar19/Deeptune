@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double paddingValue = Get.width * 0.03;
     double titleFontSize = Get.width * 0.06;
-    double subtitleFontSize = Get.width * 0.03;
+    double subtitleFontSize = Get.width * 0.034;
 
     return SafeArea(
       child: Scaffold(
