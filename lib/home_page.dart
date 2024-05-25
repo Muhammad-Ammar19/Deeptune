@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
                         "See all >",
                         style: TextStyle(
                           fontFamily: "Monteserrat",
-                          fontSize: subtitleFontSize,
+                          fontSize: titleFontSize,
                           color: Colors.grey,
                           fontWeight: FontWeight.normal,
                         ),

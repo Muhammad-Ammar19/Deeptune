@@ -35,7 +35,7 @@ class PlayerController extends GetxController {
     // checkPermission();
    initAudioPlayerListeners(); 
    loadFavoriteSongs();
-   loadRecentlyPlayedSongs(); // Load recently played songs when the controller is initialized // Load favorite songs when the controller is initialized
+   loadRecentlyPlayedSongs(); 
   }
  // Method to save favorite songs to local storage
   Future<void> saveFavoriteSongs() async {
@@ -357,4 +357,3 @@ int getFavoriteSongsCount() {
     return favoriteSongs.length;
   }
 }
-//ammar
