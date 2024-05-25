@@ -13,7 +13,7 @@ class BottomMusicPlayerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var currentSong = controller.selectedSong.value;
-    // var isPlaying = controller.isPlaying.value;
+    //var isPlaying = controller.isPlaying.value;
     if (currentSong == null) {
       return const Scaffold(
           body: Center(child: Text('No song is currently playing')));
@@ -52,7 +52,7 @@ class BottomMusicPlayerPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: Get.height * 0.05),
+                SizedBox(height: Get.height * 0.05,width: double.infinity,),
                 // Song image
                 Card(
                  margin: EdgeInsets.symmetric(horizontal: paddingSize),
@@ -120,7 +120,7 @@ class BottomMusicPlayerPage extends StatelessWidget {
                         style:
                              TextStyle(color: Colors.grey,fontSize: fontSize * 0.7),
                       ),
-                      const SizedBox(width: 310),
+                      SizedBox(width: Get.width * 0.70), 
                       Text(
                         controller.duration.value,
                         style:

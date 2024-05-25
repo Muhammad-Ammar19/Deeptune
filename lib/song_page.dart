@@ -129,7 +129,7 @@ class SongPage extends StatelessWidget {
                             controller.position.value,
                             style: TextStyle(color: Colors.grey, fontSize: fontSize * 0.7),
                           ),
-                          SizedBox(width: Get.width * 0.55), // Adjust based on screen width
+                          SizedBox(width: Get.width * 0.70), // Adjust based on screen width
                           Text(
                             controller.duration.value,
                             style: TextStyle(color: Colors.grey, fontSize: fontSize * 0.7),

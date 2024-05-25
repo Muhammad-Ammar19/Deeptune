@@ -12,81 +12,98 @@ import 'search_list.dart';
 import 'song_list_view.dart';
 import 'recently_played.dart';
 
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double paddingValue = Get.width * 0.03;
+    double titleFontSize = Get.width * 0.06;
+    double subtitleFontSize = Get.width * 0.03;
+
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(forceMaterialTransparency: true,
+        appBar: AppBar(
+          forceMaterialTransparency: true,
           centerTitle: true,
           actions: [
             GestureDetector(
                 onTap: () {
-                  Get.to(() => SearchList(), transition: Transition.fadeIn);
+                  Get.to(() =>  SearchList(), transition: Transition.fadeIn);
                 },
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 18),
+                child: Padding(
+                  padding: EdgeInsets.only(right: paddingValue),
                   child: Icon(
                     Icons.search,
-                    size: 25,
+                    size: Get.width * 0.06,
                   ),
-                ))
+                )),
           ],
-          title: const Text(
+          title: Text(
             "Deeptune",
-            style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: Get.width * 0.05,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
 
         drawer: const CustomDrawer(), // Drawer
 
-        bottomNavigationBar: const BottomMusicPlayer(), // Bottom Music Player
+        bottomNavigationBar:  const BottomMusicPlayer(), // Bottom Music Player
 
         body: SafeArea(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.symmetric(horizontal: paddingValue),
                 child: SizedBox(
-                    width: double.infinity,
-                    height: Get.height * 0.2,
-                    child: DropShadowImage(
-                      image: Image.asset(
-                        "assets/images/cover.jpg",
-                        filterQuality: FilterQuality.high,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                      borderRadius: 9,
-                      blurRadius: 7,
-                      offset: const Offset(5, 6),
-                    )),
+                  width: double.infinity,
+                  height: Get.height * 0.2,
+                  child: DropShadowImage(
+                    image: Image.asset(
+                      "assets/images/cover.jpg",
+                      filterQuality: FilterQuality.high,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                    borderRadius: 9,
+                    blurRadius: 7,
+                    offset: const Offset(5, 6),
+                  ),
+                ),
               ),
               Container(
-                margin: const EdgeInsets.only(
-                    top: 10, left: 13, right: 16, bottom: 5),
+                margin: EdgeInsets.only(
+                  top: Get.height * 0.02,
+                  left: paddingValue,
+                  right: paddingValue,
+                  bottom: Get.height * 0.01,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Recent",
                       style: TextStyle(
-                          fontFamily: "Monteserrat",
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                        fontFamily: "Monteserrat",
+                        fontSize: titleFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
-               Get.to(() => const RecentPage(),transition: Transition.fadeIn);     },
-                      child: const Text(
+                        Get.to(() => const RecentPage(),transition: Transition.fadeIn);
+                      },
+                      child: Text(
                         "See all >",
                         style: TextStyle(
-                            fontFamily: "Monteserrat",
-                            fontSize: 12.5,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.normal),
+                          fontFamily: "Monteserrat",
+                          fontSize: subtitleFontSize,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ],
@@ -96,36 +113,37 @@ class HomePage extends StatelessWidget {
               const RecentlyPlayed(), // New Page for recently played
 
               Container(
-                margin: const EdgeInsets.only(left: 13, right: 17),
+                margin: EdgeInsets.symmetric(horizontal: paddingValue),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Songs",
                       style: TextStyle(
-                          fontFamily: "Monteserrat",
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+                        fontFamily: "Monteserrat",
+                        fontSize: titleFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => const AllSongsPage(),
-                            transition: Transition.fadeIn);
+                        Get.to(() => const AllSongsPage(), transition: Transition.fadeIn);
                       },
-                      child: const Text(
+                      child: Text(
                         "See all >",
                         style: TextStyle(
-                            fontFamily: "Monteserrat",
-                            fontSize: 12.5,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.normal),
+                          fontFamily: "Monteserrat",
+                          fontSize: subtitleFontSize,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
 
-              const SongListView() // Shows Song List in HomePage
+              const SongListView(), // Shows Song List in HomePage
             ],
           ),
         ),
@@ -139,35 +157,40 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double iconSize = Get.width * 0.04; // Adjust this as needed
+    double fontSize = Get.width * 0.032; // Adjust this as needed
+    double titleFontSize = Get.width * 0.06; // Adjust this as needed
+
     return Drawer(
       elevation: 5,
       width: Get.width * 0.8,
-      child: Column(
+      child: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
+            SizedBox(height: Get.height * 0.05),
+            Text(
               "Settings",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: titleFontSize),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: Get.height * 0.02),
             ListTile(
               onTap: () async {
                 await ThemePreference.setTheme(false);
                 Get.changeThemeMode(ThemeMode.light);
               },
-              title: const Text(
-                "Light mode ",
-                style: TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.bold), //  Light Mode
+              title: Text(
+                "Light mode",
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.light_mode_rounded,
-                size: 15,
+                size: iconSize,
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: 12,
+                size: iconSize * 0.75,
               ),
               dense: true,
             ),
@@ -176,127 +199,122 @@ class CustomDrawer extends StatelessWidget {
                 await ThemePreference.setTheme(true);
                 Get.changeThemeMode(ThemeMode.dark);
               },
-              title: const Text(
+              title: Text(
                 "Dark mode",
-                style: TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.bold), //  Dark Mode
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.dark_mode_rounded,
-                size: 15,
+                size: iconSize,
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: 12,
+                size: iconSize * 0.75,
               ),
               dense: true,
             ),
             ListTile(
-              onTap: () { AdManager.showRewardedAd();},
-              title: const Text(
+              onTap: () {
+                AdManager.showRewardedAd();
+              },
+              title: Text(
                 "Chrome Cast",
-                style: TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.bold), // Bluetooth
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.cast_connected_rounded,
-                size: 15,
+                size: iconSize,
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: 12,
+                size: iconSize * 0.75,
               ),
               dense: true,
             ),
             ListTile(
-              title: const Text(
+              onTap: () {
+                Get.to(() => const EqualizerPage(), transition: Transition.fadeIn);
+              },
+              title: Text(
                 "Equalizer",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.equalizer_rounded,
-                size: 15,
+                size: iconSize,
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: 12,
+                size: iconSize * 0.75,
               ),
               dense: true,
-              onTap: () {
-                Get.to(() => const EqualizerPage(),
-                    transition: Transition.fadeIn);
-              },
             ),
             ListTile(
               onTap: () {
-                Get.to(() => const GridViewPage(),
-                    transition: Transition.fadeIn);
+                Get.to(() => const GridViewPage(), transition: Transition.fadeIn);
               },
-              title: const Text(
+              title: Text(
                 "Music Library",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.music_note_rounded,
-                size: 15,
+                size: iconSize,
               ),
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: 12,
+                size: iconSize * 0.75,
               ),
               dense: true,
             ),
             ListTile(
               onTap: () {
                 Get.defaultDialog(
-                  titleStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  middleText:
-                      'Want to support the developers?\nYou can support the developers by watching the ad.',
-                  confirm: const Text(
+                  titleStyle: TextStyle(fontSize: fontSize * 1.5, fontWeight: FontWeight.bold),
+                  middleText: 'Want to support the developers?\nYou can support the developers by watching the ad.',
+                  confirm: Text(
                     "Sure",
-                    style: TextStyle(color: Colors.green),
+                    style: TextStyle(color: Colors.green, fontSize: fontSize),
                   ),
                   radius: 10,
                   title: "Support Developers",
-                  cancel: const Text(
+                  cancel: Text(
                     "No, Thanks",
-                    style: TextStyle(color: Colors.redAccent),
+                    style: TextStyle(color: Colors.redAccent, fontSize: fontSize),
                   ),
                   titlePadding: const EdgeInsets.all(10),
                 );
               },
-              title: const Text(
+              title: Text(
                 "Support the Developers",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.favorite,
-                size: 15,
+                size: iconSize,
               ),
               dense: true,
               iconColor: Colors.greenAccent,
-              trailing: const Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: 12,
+                size: iconSize * 0.75,
               ),
             ),
             ListTile(
               onTap: () {
                 Get.defaultDialog(
                   title: 'Deeptune from ryze.',
-                  middleText:
-                      'Deeptune is your ultimate music player for a seamless listening experience. Enjoy customizable playback, playlist management, offline mode, and cross-platform sync.',
+                  middleText: 'Deeptune is your ultimate music player for a seamless listening experience. Enjoy customizable playback, playlist management, offline mode, and cross-platform sync.',
                   radius: 10,
                 );
               },
-              title: const Text(
+              title: Text(
                 "About",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
-              leading: const Icon(
+              leading: Icon(
                 Icons.info_outline_rounded,
-                size: 15,
+                size: iconSize,
               ),
               dense: true,
             ),
@@ -315,7 +333,9 @@ class CustomDrawer extends StatelessWidget {
               applicationName: "Deeptune",
               applicationLegalese: "Deeptune from ryze.",
             ),
-          ]),
+          ],
+        ),
+      ),
     );
   }
 }
