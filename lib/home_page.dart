@@ -169,7 +169,7 @@ class CustomDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: Get.height * 0.05),
+            SizedBox(height: Get.height * 0.08),
             Text(
               "Settings",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: titleFontSize),

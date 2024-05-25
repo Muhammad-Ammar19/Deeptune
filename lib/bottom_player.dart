@@ -1,4 +1,3 @@
-import 'package:deeptune_musicplayer/bottom_player_page.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,10 +9,11 @@ class BottomMusicPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-
+     double paddingSize = Get.width * 0.02; // Padding size based on screen width
+     double fontSize = Get.width * 0.035; // Adjust the font size based on screen width
     return GestureDetector(
       onTap: () {
-        Get.to(() => BottomMusicPlayerPage(), transition: Transition.fadeIn);
+        // Get.to(() => BottomMusicPlayerPage(), transition: Transition.fadeIn);
       },
       child: Obx(() {
         var currentSong = controller.selectedSong.value;
@@ -26,9 +26,9 @@ class BottomMusicPlayer extends StatelessWidget {
         return Card(
           elevation: 4,
           child: Container(
-            height: Get.height * 0.09,
+            height: Get.height * 0.08,
             width: double.infinity,
-            padding: const EdgeInsets.only(right: 10),
+            padding:  EdgeInsets.only(right: paddingSize),
             child: Row(
               children: [
                 // Song Image
@@ -58,13 +58,13 @@ class BottomMusicPlayer extends StatelessWidget {
                     children: [
                       Text(
                         currentSong.title,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style:  TextStyle(fontWeight: FontWeight.bold,fontSize: fontSize),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         currentSong.artist ?? 'Unknown Artist',
-                        style: const TextStyle(color: Colors.grey),
+                        style:  TextStyle(color: Colors.grey,fontSize: fontSize),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
