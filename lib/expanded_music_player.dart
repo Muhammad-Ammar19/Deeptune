@@ -11,9 +11,11 @@ class ExpandedMusicPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
     double paddingSize = Get.width * 0.04; // Padding size based on screen width
-    double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
+    double fontSize =
+        Get.width * 0.04; // Adjust the font size based on screen width
     double iconSize = Get.width * 0.060;
-    double iconSizep = Get.width *0.1; // Adjust the icon size based on screen width
+    double iconSizep =
+        Get.width * 0.1; // Adjust the icon size based on screen width
     return Padding(
       padding: EdgeInsets.all(paddingSize),
       child: Obx(() {
@@ -28,7 +30,8 @@ class ExpandedMusicPlayer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Card(elevation: 4,
+            Card(
+              elevation: 4,
               child: QueryArtworkWidget(
                 id: currentSong.id,
                 type: ArtworkType.AUDIO,
@@ -72,37 +75,46 @@ class ExpandedMusicPlayer extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [ IconButton(
-                          onPressed: () {
-                            if (!controller.isLooping.value && !controller.isShuffling.value && !controller.isRepeating.value) {
-                              controller.toggleLoop();
-                            } else if (controller.isLooping.value) {
-                              controller.toggleShuffle();
-                            } else if (controller.isShuffling.value) {
-                              controller.toggleRepeat();
-                            } else {
-                              controller.toggleLoop();
-                            }
-                          },
-                          icon: Obx(() {
-                            if (controller.isLooping.value) {
-                              return Icon(Icons.loop_rounded, size: iconSize);
-                            } else if (controller.isShuffling.value) {
-                              return Icon(Icons.shuffle_rounded, size: iconSize);
-                            } else if (controller.isRepeating.value) {
-                              return Icon(Icons.repeat_rounded, size: iconSize);
-                            } else {
-                              return Icon(Icons.loop_rounded, size: iconSize); // Default to loop icon
-                            }
-                          }),
-                        ),
+              children: [
                 IconButton(
-                  icon: Icon(Icons.replay_10_rounded,size: iconSize,),
+                  onPressed: () {
+                    if (!controller.isLooping.value &&
+                        !controller.isShuffling.value &&
+                        !controller.isRepeating.value) {
+                      controller.toggleLoop();
+                    } else if (controller.isLooping.value) {
+                      controller.toggleShuffle();
+                    } else if (controller.isShuffling.value) {
+                      controller.toggleRepeat();
+                    } else {
+                      controller.toggleLoop();
+                    }
+                  },
+                  icon: Obx(() {
+                    if (controller.isLooping.value) {
+                      return Icon(Icons.loop_rounded, size: iconSize);
+                    } else if (controller.isShuffling.value) {
+                      return Icon(Icons.shuffle_rounded, size: iconSize);
+                    } else if (controller.isRepeating.value) {
+                      return Icon(Icons.repeat_rounded, size: iconSize);
+                    } else {
+                      return Icon(Icons.loop_rounded,
+                          size: iconSize); // Default to loop icon
+                    }
+                  }),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.replay_10_rounded,
+                    size: iconSize,
+                  ),
                   onPressed: () => controller.rewind(10),
                 ),
-                
                 IconButton(
-                  icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,size: iconSizep,),
+                  icon: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: iconSizep,
+                  ),
                   onPressed: () {
                     if (isPlaying) {
                       controller.pauseSong();
@@ -112,15 +124,20 @@ class ExpandedMusicPlayer extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  icon:  Icon(Icons.forward_10_rounded,size: iconSize,),
+                  icon: Icon(
+                    Icons.forward_10_rounded,
+                    size: iconSize,
+                  ),
                   onPressed: () => controller.fastForward(10),
                 ),
-            IconButton(
-                          onPressed: () {
-                            Get.to(() => const EqualizerPage(), transition: Transition.fadeIn);
-                          },
-                          icon: Icon(Icons.equalizer_rounded, size: iconSize),
-                        ),  ],
+                IconButton(
+                  onPressed: () {
+                    Get.to(() => const EqualizerPage(),
+                        transition: Transition.fadeIn);
+                  },
+                  icon: Icon(Icons.equalizer_rounded, size: iconSize),
+                ),
+              ],
             ),
           ],
         );
