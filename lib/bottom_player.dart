@@ -19,7 +19,7 @@ class BottomMusicPlayer extends StatelessWidget {
         showModalBottomSheet(
           elevation: 4,
           context: context,
-          isScrollControlled: true,sheetAnimationStyle:AnimationStyle(reverseCurve: Curves.easeInCirc),
+          isScrollControlled: true,sheetAnimationStyle:AnimationStyle(curve: Curves.bounceInOut),
           builder: (context) => DraggableScrollableSheet(
             expand: false,
             builder: (context, scrollController) => SingleChildScrollView(
