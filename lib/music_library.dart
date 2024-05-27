@@ -157,7 +157,7 @@ class GridViewPage extends StatelessWidget {
                     Obx(() {
                       final favoriteCount = playerController.favoriteSongs.length;
                       return Text(
-                        '$favoriteCount Favorites',
+                        '$favoriteCount Tracks',
                         style: TextStyle(fontSize: fontSize * 0.7),
                       );
                     }),

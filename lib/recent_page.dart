@@ -13,7 +13,8 @@ class RecentPage extends StatelessWidget {
     final controller = Get.find<PlayerController>();
 
     return Scaffold(
-      appBar: AppBar(forceMaterialTransparency: true,
+      appBar: AppBar(
+        forceMaterialTransparency: true,
         actions: [
           GestureDetector(
               onTap: () {
@@ -37,49 +38,49 @@ class RecentPage extends StatelessWidget {
         () => controller.recentlyPlayedSongs.isEmpty
             ? const Center(child: Text("No Songs were found"))
             : ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: controller.recentlyPlayedSongs.length,
-              itemBuilder: (BuildContext context, int index) {
-                final song = controller.recentlyPlayedSongs[index];
-                return ListTile(
-                  leading: Card(
-                    elevation: 4,
-                    child: QueryArtworkWidget(
-                      id: song.id,
-                      type: ArtworkType.AUDIO,
-                      nullArtworkWidget: const Icon(
-                        Icons.music_note_rounded,
-                        size: 50,
+                physics: const BouncingScrollPhysics(),
+                itemCount: controller.recentlyPlayedSongs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final song = controller.recentlyPlayedSongs[index];
+                  return ListTile(
+                    leading: Card(
+                      elevation: 4,
+                      child: QueryArtworkWidget(
+                        id: song.id,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget: const Icon(
+                          Icons.music_note_rounded,
+                          size: 50,
+                        ),
+                        artworkFit: BoxFit.cover,
+                        artworkBorder: BorderRadius.circular(4),
                       ),
-                      artworkFit: BoxFit.cover,
-                      artworkBorder: BorderRadius.circular(4),
                     ),
-                  ),
-                  title: Text(
-                    song.displayNameWOExt,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
+                    title: Text(
+                      song.displayNameWOExt,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    song.artist ?? 'Unknown Artist',
-                    style: const TextStyle(fontSize: 11),
-                  ),
-                  onTap: () {
-                    // Play the tapped song
-                    controller.playSong(song.uri, index);
-                    // Navigate to the song page
-                    Get.to(
-                        () =>
-                            SongPage(data: controller.recentlyPlayedSongs),
-                        transition: Transition.fadeIn);
-                  },
-                );
-              },
-            ),
+                    subtitle: Text(
+                      song.artist ?? 'Unknown Artist',
+                      style: const TextStyle(fontSize: 11),
+                    ),
+                    onTap: () {
+                      // Play the tapped song
+                      controller.playSong(song.uri, index);
+                      // Navigate to the song page
+                      Get.to(
+                          () => SongPage(data: controller.recentlyPlayedSongs),
+                          transition: Transition.fadeIn);
+                      controller.updateSelectedSong(song);
+                    },
+                  );
+                },
+              ),
       ),
     );
   }

@@ -12,7 +12,8 @@ class FavouritesPage extends StatelessWidget {
     var controller = Get.find<PlayerController>();
 
     return Scaffold(
-      appBar: AppBar(forceMaterialTransparency: true,
+      appBar: AppBar(
+        forceMaterialTransparency: true,
         title: const Text(
           'Favourites',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -65,6 +66,7 @@ class FavouritesPage extends StatelessWidget {
                   controller.playSong(song.uri, index);
                   Get.to(() => SongPage(data: controller.favoriteSongs),
                       transition: Transition.fadeIn);
+                  controller.updateSelectedSong(song);
                 },
               );
             },
