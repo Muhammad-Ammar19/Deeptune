@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/expanded_music_player.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,11 +10,24 @@ class BottomMusicPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-     double paddingSize = Get.width * 0.02; // Padding size based on screen width
-     double fontSize = Get.width * 0.035; // Adjust the font size based on screen width
+    double paddingSize = Get.width * 0.02; // Padding size based on screen width
+    double fontSize =
+        Get.width * 0.035; // Adjust the font size based on screen width
     return GestureDetector(
       onTap: () {
         // Get.to(() => BottomMusicPlayerPage(), transition: Transition.fadeIn);
+        showModalBottomSheet(
+          elevation: 4,
+          context: context,
+          isScrollControlled: true,sheetAnimationStyle:AnimationStyle(reverseCurve: Curves.easeInCirc),
+          builder: (context) => DraggableScrollableSheet(
+            expand: false,
+            builder: (context, scrollController) => SingleChildScrollView(
+              controller: scrollController,
+              child: const ExpandedMusicPlayer(),
+            ),
+          ),
+        );
       },
       child: Obx(() {
         var currentSong = controller.selectedSong.value;
@@ -28,7 +42,7 @@ class BottomMusicPlayer extends StatelessWidget {
           child: Container(
             height: Get.height * 0.09,
             width: double.infinity,
-            padding:  EdgeInsets.only(right: paddingSize),
+            padding: EdgeInsets.only(right: paddingSize),
             child: Row(
               children: [
                 // Song Image
@@ -58,13 +72,15 @@ class BottomMusicPlayer extends StatelessWidget {
                     children: [
                       Text(
                         currentSong.title,
-                        style:  TextStyle(fontWeight: FontWeight.bold,fontSize: fontSize),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: fontSize),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         currentSong.artist ?? 'Unknown Artist',
-                        style:  TextStyle(color: Colors.grey,fontSize: fontSize),
+                        style:
+                            TextStyle(color: Colors.grey, fontSize: fontSize),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -77,7 +93,7 @@ class BottomMusicPlayer extends StatelessWidget {
                               .clamp(0.0, 1.0),
                           backgroundColor: Colors.transparent,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.deepPurple.shade300),
+                              Colors.deepPurple.shade200),
                         ),
                       ),
                     ],
