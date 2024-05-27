@@ -14,8 +14,7 @@ class ExpandedMusicPlayer extends StatelessWidget {
     double fontSize =
         Get.width * 0.04; // Adjust the font size based on screen width
     double iconSize = Get.width * 0.060;
-    double iconSizep =
-        Get.width * 0.1; // Adjust the icon size based on screen width
+    double iconSizep = Get.width * 0.1; // Adjust the icon size based on screen width
     return Padding(
       padding: EdgeInsets.all(paddingSize),
       child: Obx(() {
