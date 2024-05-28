@@ -16,6 +16,7 @@ class ExpandedMusicPlayer extends StatelessWidget {
     double iconSize = Get.width * 0.060;
     double iconSizep =
         Get.width * 0.1; // Adjust the icon size based on screen width
+    double nullIcon = Get.width *0.52;
     return Padding(
       padding: EdgeInsets.all(paddingSize),
       child: Obx(() {
@@ -38,9 +39,9 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 artworkHeight: Get.height * 0.25,
                 artworkWidth: Get.height * 0.25,
                 artworkBorder: BorderRadius.circular(10),
-                nullArtworkWidget: const Icon(
+                nullArtworkWidget:  Icon(
                   Icons.music_note_rounded,
-                  size: 150,
+                  size: nullIcon,
                 ),
               ),
             ),
