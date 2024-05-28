@@ -14,7 +14,8 @@ class ExpandedMusicPlayer extends StatelessWidget {
     double fontSize =
         Get.width * 0.04; // Adjust the font size based on screen width
     double iconSize = Get.width * 0.060;
-    double iconSizep = Get.width * 0.1; // Adjust the icon size based on screen width
+    double iconSizep =
+        Get.width * 0.1; // Adjust the icon size based on screen width
     return Padding(
       padding: EdgeInsets.all(paddingSize),
       child: Obx(() {
@@ -111,6 +112,13 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 ),
                 IconButton(
                   icon: Icon(
+                    Icons.skip_previous_rounded,
+                    size: iconSize,
+                  ),
+                  onPressed: () => controller.playPreviousSong(),
+                ),
+                IconButton(
+                  icon: Icon(
                     isPlaying ? Icons.pause : Icons.play_arrow,
                     size: iconSizep,
                   ),
@@ -121,6 +129,13 @@ class ExpandedMusicPlayer extends StatelessWidget {
                       controller.resumeSong();
                     }
                   },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.skip_next_rounded,
+                    size: iconSize,
+                  ),
+                  onPressed: () => controller.playNextSong(),
                 ),
                 IconButton(
                   icon: Icon(

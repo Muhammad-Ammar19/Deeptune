@@ -353,7 +353,18 @@ Future<void> loadRecentlyPlayedSongs() async {
     recentlyPlayedSongs.assignAll(songs.where((song) => songIds.contains(song.id.toString())).toList());
   }
 }
+
 int getFavoriteSongsCount() {
     return favoriteSongs.length;
   }
+
+void playPreviousSong() {
+  final currentIndex = playIndex.value;
+  if (currentIndex > 0) {
+    playSong(searchResults[currentIndex - 1].uri, currentIndex - 1);
+  } else {
+    // Optionally handle the beginning of the song list
+    stopSong();
+  }
+}
 }
