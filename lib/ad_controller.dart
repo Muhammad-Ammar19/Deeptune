@@ -8,7 +8,7 @@ class AdManager {
   static late InterstitialAd? _interstitialAd;
   static late RewardedAd? _rewardedAd;
 
-  static const String bannerAdUnitId = 'ca-app-pub-3940256099942544/6300978111';
+  static const String bannerAdUnitId = 'ca-app-pub-3940256099942544/9214589741';
   static const String interstitialAdUnitId = 'ca-app-pub-3940256099942544/1033173712';
   static const String rewardedAdUnitId = 'ca-app-pub-3940256099942544/5224354917'; 
   static int _adLoadCounter = 0;
@@ -65,7 +65,7 @@ class AdManager {
   static void _loadRewardedAd() {
     RewardedAd.load(
       adUnitId: rewardedAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           print('Rewarded ad loaded');

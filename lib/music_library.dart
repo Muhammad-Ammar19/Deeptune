@@ -37,7 +37,7 @@ class GridViewPage extends StatelessWidget {
       ),
       bottomNavigationBar: bannerAdWidget != Container()
           ? SizedBox(
-              height: Get.height * 0.06,
+              height: Get.height * 0.09,
               child: bannerAdWidget,
             )
           : null,
