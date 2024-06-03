@@ -22,7 +22,7 @@ class SongPage extends StatelessWidget {
     
     double iconSize = Get.width * 0.06; // Adjust the icon size based on screen width
     double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
-    double artworkHeight = Get.height * 0.53; // Artwork height based on screen height
+    double artworkHeight = Get.height * 0.52; // Artwork height based on screen height
     double artworkWidth = Get.width * 1.0; // Artwork width based on screen width
     double paddingSize = Get.width * 0.02; // Padding size based on screen width
     
