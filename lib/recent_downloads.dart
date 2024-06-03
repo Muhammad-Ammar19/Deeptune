@@ -1,3 +1,4 @@
+import 'package:deeptune_musicplayer/search_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -15,7 +16,17 @@ class RecentDownloaded extends StatelessWidget {
    
     return Scaffold(
       appBar: AppBar(forceMaterialTransparency: true,
-        centerTitle: true,
+        centerTitle: true,actions: [ GestureDetector(
+              onTap: () {
+                Get.to(() => SearchList(), transition: Transition.fadeIn);
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 18),
+                child: Icon(
+                  Icons.search,
+                  size: 25,
+                ),
+              ))],
         title: const Text(
           "Recent Downloads",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

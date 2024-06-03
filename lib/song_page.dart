@@ -38,7 +38,7 @@ class SongPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(forceMaterialTransparency: true,
           centerTitle: true,
           actions: [
             IconButton(
@@ -80,7 +80,7 @@ class SongPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: Get.height * 0.07),
+                    SizedBox(height: Get.height * 0.08),
                     ListTile(
                       leading: IconButton(
                           onPressed: () {},
@@ -123,13 +123,13 @@ class SongPage extends StatelessWidget {
                     ),
                     Obx(
                       () => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             controller.position.value,
                             style: TextStyle(color: Colors.grey, fontSize: fontSize * 0.7),
                           ),
-                          SizedBox(width: Get.width * 0.70), // Adjust based on screen width
+                       
                           Text(
                             controller.duration.value,
                             style: TextStyle(color: Colors.grey, fontSize: fontSize * 0.7),
@@ -138,7 +138,7 @@ class SongPage extends StatelessWidget {
                       ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
                           onPressed: () {
@@ -199,7 +199,7 @@ class SongPage extends StatelessWidget {
                               controller.isPlaying.value
                                   ? Icons.pause
                                   : Icons.play_arrow_rounded, //Play/Pause Button
-                              size: iconSize * 1.5,
+                              size: iconSize * 1.30,
                             ),
                           ),
                         ),
