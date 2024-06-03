@@ -1,10 +1,10 @@
+import 'dart:math';
+
 import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
-
-
 
 class ExpandedMusicPlayer extends StatelessWidget {
   const ExpandedMusicPlayer({Key? key}) : super(key: key);
@@ -13,9 +13,11 @@ class ExpandedMusicPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
     double paddingSize = Get.width * 0.04; // Padding size based on screen width
-    double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
+    double fontSize =
+        Get.width * 0.04; // Adjust the font size based on screen width
     double iconSize = Get.width * 0.060;
-    double iconSizep = Get.width * 0.1; // Adjust the icon size based on screen width
+    double iconSizep =
+        Get.width * 0.1; // Adjust the icon size based on screen width
     double nullIcon = Get.width * 0.52;
 
     return Padding(
@@ -59,15 +61,26 @@ class ExpandedMusicPlayer extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis, // Prevent overflow
             ),
-            SizedBox(height: Get.height * 0.01),
+            SizedBox(height: Get.height * 0.005),
+
             Slider(
-              min: 0.0,
-              max: controller.max.value,
-              value: controller.value.value,
-              onChanged: (value) {
-                controller.changeDurationToSeconds(value.toInt());
+              min: 0,
+              max: controller.max.value.toDouble(),
+              value: min(max(0, controller.value.value.toDouble()),
+                  controller.max.value.toDouble()),
+              onChanged: (newValue) {
+                controller.changeDurationToSeconds(newValue.toInt());
               },
             ),
+
+            // Slider(
+            //   min: 0.0,
+            //   max: controller.max.value,
+            //   value: controller.value.value,
+            //   onChanged: (value) {
+            //     controller.changeDurationToSeconds(value.toInt());
+            //   },
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,12 +88,13 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 Text(controller.duration.value),
               ],
             ),
-         //   SizedBox(height: Get.height * 0.005), // Add some spacing
-           
+            //   SizedBox(height: Get.height * 0.005), // Add some spacing
+
             SingleChildScrollView(
-              scrollDirection: Axis.horizontal, 
+              scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Space between icons
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceEvenly, // Space between icons
                 children: [
                   IconButton(
                     onPressed: () {
@@ -104,7 +118,8 @@ class ExpandedMusicPlayer extends StatelessWidget {
                       } else if (controller.isRepeating.value) {
                         return Icon(Icons.repeat_rounded, size: iconSize);
                       } else {
-                        return Icon(Icons.loop_rounded, size: iconSize); // Default to loop icon
+                        return Icon(Icons.loop_rounded,
+                            size: iconSize); // Default to loop icon
                       }
                     }),
                   ),
@@ -151,7 +166,8 @@ class ExpandedMusicPlayer extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      Get.to(() => const EqualizerPage(), transition: Transition.fadeIn);
+                      Get.to(() => const EqualizerPage(),
+                          transition: Transition.fadeIn);
                     },
                     icon: Icon(Icons.equalizer_rounded, size: iconSize),
                   ),

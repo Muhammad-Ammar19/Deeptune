@@ -3,21 +3,26 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 
 
+
 class AdManager {
-  static late BannerAd? _bannerAd;
-  static late InterstitialAd? _interstitialAd;
-  static late RewardedAd? _rewardedAd;
+  static BannerAd? _bannerAd;
+  static BannerAd? _secondaryBannerAd;
+  static InterstitialAd? _interstitialAd;
+  static RewardedAd? _rewardedAd;
+  static AppOpenAd? _appOpenAd;
 
   static const String bannerAdUnitId = 'ca-app-pub-3940256099942544/9214589741';
+  static const String secondaryBannerAdUnitId = 'ca-app-pub-3940256099942544/6300978111'; 
   static const String interstitialAdUnitId = 'ca-app-pub-3940256099942544/1033173712';
-  static const String rewardedAdUnitId = 'ca-app-pub-3940256099942544/5224354917'; 
-  static int _adLoadCounter = 0;
-  static const int _adLoadLimit = 5; // Set the ad load limit
+  static const String rewardedAdUnitId = 'ca-app-pub-3940256099942544/5224354917';
+  static const String appOpenAdUnitId = 'ca-app-pub-3940256099942544/9257395921'; 
 
   static void init() {
     _loadBannerAd();
+    _loadSecondaryBannerAd();
     _loadInterstitialAd();
     _loadRewardedAd();
+    _loadAppOpenAd();
   }
 
   static void _loadBannerAd() {
@@ -44,6 +49,32 @@ class AdManager {
       ),
     );
     _bannerAd!.load();
+  }
+
+  static void _loadSecondaryBannerAd() {
+    _secondaryBannerAd = BannerAd(
+      adUnitId: secondaryBannerAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          print('Secondary banner ad loaded');
+        },
+        onAdFailedToLoad: (ad, error) {
+          print('Secondary banner ad failed to load: $error');
+          ad.dispose();
+          _secondaryBannerAd = null;
+        },
+        onAdOpened: (ad) {
+          print('Secondary banner ad opened');
+        },
+        onAdClosed: (ad) {
+          print('Secondary banner ad closed');
+          _loadSecondaryBannerAd(); // Load another ad after the previous one is closed
+        },
+      ),
+    );
+    _secondaryBannerAd!.load();
   }
 
   static void _loadInterstitialAd() {
@@ -78,8 +109,40 @@ class AdManager {
     );
   }
 
+  static void _loadAppOpenAd() {
+    AppOpenAd.load(
+      adUnitId: appOpenAdUnitId,
+      request: const AdRequest(),
+      adLoadCallback: AppOpenAdLoadCallback(
+        onAdLoaded: (ad) {
+          print('App open ad loaded');
+          _appOpenAd = ad;
+        },
+        onAdFailedToLoad: (error) {
+          print('App open ad failed to load: $error');
+        },
+      ),
+      orientation: AppOpenAd.orientationPortrait,
+    );
+  }
+
+  static void showAppOpenAd() async {
+    if (_appOpenAd != null) {
+      await _appOpenAd!.show();
+      _appOpenAd = null; // Reset the ad to ensure it doesn't show again
+      _loadAppOpenAd(); // Load another ad for the next app open event
+    } else {
+      print('App open ad is not ready yet');
+      _loadAppOpenAd(); // Load the app open ad if it's not initialized
+    }
+  }
+
   static bool isBannerAdLoaded() {
     return _bannerAd != null;
+  }
+
+  static bool isSecondaryBannerAdLoaded() {
+    return _secondaryBannerAd != null;
   }
 
   static bool isInterstitialAdLoaded() {
@@ -90,6 +153,12 @@ class AdManager {
     return _rewardedAd != null;
   }
 
+  static bool isAppOpenAdLoaded() {
+    return _appOpenAd != null;
+  }
+
+  static BannerAd? get secondaryBannerAd => _secondaryBannerAd;
+
   static Widget? getBannerAdWidget() {
     if (_bannerAd != null) {
       return AdWidget(ad: _bannerAd!);
@@ -98,11 +167,11 @@ class AdManager {
     }
   }
 
-  static void incrementAdLoadCounter() {
-    _adLoadCounter++;
-    if (_adLoadCounter >= _adLoadLimit) {
-      _adLoadCounter = 0;
-      _loadBannerAd();
+  static Widget? getSecondaryBannerAdWidget() {
+    if (_secondaryBannerAd != null) {
+      return AdWidget(ad: _secondaryBannerAd!);
+    } else {
+      return null;
     }
   }
 
@@ -115,21 +184,21 @@ class AdManager {
     }
   }
 
- static void showRewardedAd() async {
-  if (_rewardedAd != null) {
-    try {
-      await _rewardedAd!.show(
-        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
-          // Handle reward logic here
-        },
-      );
-    } catch (e) {
-      print('Failed to show rewarded ad: $e');
-      _loadRewardedAd(); // Load another rewarded ad if the current one fails
+  static void showRewardedAd() async {
+    if (_rewardedAd != null) {
+      try {
+        await _rewardedAd!.show(
+          onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+            // Handle reward logic here
+          },
+        );
+      } catch (e) {
+        print('Failed to show rewarded ad: $e');
+        _loadRewardedAd(); // Load another rewarded ad if the current one fails
+      }
+    } else {
+      print('Rewarded ad is not ready yet');
+      _loadRewardedAd(); // Load the rewarded ad if it's not initialized
     }
-  } else {
-    print('Rewarded ad is not ready yet');
-    _loadRewardedAd(); // Load the rewarded ad if it's not initialized
   }
-}
 }

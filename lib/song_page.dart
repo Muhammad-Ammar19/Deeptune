@@ -4,6 +4,7 @@ import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 
@@ -21,7 +22,7 @@ class SongPage extends StatelessWidget {
     
     double iconSize = Get.width * 0.06; // Adjust the icon size based on screen width
     double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
-    double artworkHeight = Get.height * 0.50; // Artwork height based on screen height
+    double artworkHeight = Get.height * 0.53; // Artwork height based on screen height
     double artworkWidth = Get.width * 1.0; // Artwork width based on screen width
     double paddingSize = Get.width * 0.02; // Padding size based on screen width
     
@@ -51,7 +52,12 @@ class SongPage extends StatelessWidget {
             style: TextStyle(fontSize: fontSize * 1.1, fontWeight: FontWeight.bold),
           ),
         ),
-        
+        bottomNavigationBar: AdManager.isSecondaryBannerAdLoaded()
+            ? SizedBox(
+                height: 60, 
+                child: AdWidget(ad: AdManager.secondaryBannerAd!),
+              )
+            : null, 
         body: SafeArea(
           child: Obx(
             () => SingleChildScrollView(
@@ -61,7 +67,7 @@ class SongPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(width: double.infinity, height: Get.height * 0.05),
+                    SizedBox(width: double.infinity, height: Get.height * 0.03),
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: paddingSize),
                       elevation: 5,
@@ -80,7 +86,7 @@ class SongPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: Get.height * 0.08),
+                    SizedBox(height: Get.height * 0.0039),
                     ListTile(
                       leading: IconButton(
                           onPressed: () {},

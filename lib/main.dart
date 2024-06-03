@@ -6,30 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
   AdManager.init();
-  await _initHive();
   Get.put(PlayerController());
   await _requestPermission();
-  
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(DevicePreview(
     enabled: !const bool.fromEnvironment('dart.vm.product'),
     builder: (context) => const MyApp(),
-  ));
+  )); // Show app open ad when the app opens
+  AdManager.showAppOpenAd();
 }
 
-Future<void> _initHive() async {
-  final appDocumentDir = await getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDir.path);
-}
 
 Future<void> _requestPermission() async {
   PermissionStatus status;
@@ -41,20 +35,16 @@ Future<void> _requestPermission() async {
 }
 
 class ThemePreference {
-  static const String _boxName = 'theme_preference';
-
-  static Future<Box> _openBox() async {
-    return await Hive.openBox(_boxName);
-  }
+  static const String _keyIsDarkMode = 'isDarkMode';
 
   static Future<void> setTheme(bool isDarkMode) async {
-    final box = await _openBox();
-    await box.put('isDarkMode', isDarkMode);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keyIsDarkMode, isDarkMode);
   }
 
   static Future<bool> getTheme() async {
-    final box = await _openBox();
-    return box.get('isDarkMode', defaultValue: false);
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_keyIsDarkMode) ?? false;
   }
 }
 
