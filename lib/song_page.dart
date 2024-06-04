@@ -67,7 +67,7 @@ class SongPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(width: double.infinity, height: Get.height * 0.03),
+                    SizedBox(width: double.infinity, height: Get.height * 0.038),
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: paddingSize),
                       elevation: 5,
