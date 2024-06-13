@@ -11,7 +11,7 @@ class AllSongsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(PlayerController());
-    final ScrollController _scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
 
     return Scaffold(
       appBar: AppBar(forceMaterialTransparency: true,
@@ -56,9 +56,9 @@ class AllSongsPage extends StatelessWidget {
               thickness: 8,
          trackVisibility: true,
               interactive: true, // Enable interactive scrollbar
-              controller: _scrollController,
+              controller: scrollController,
               child: ListView.builder(
-                controller: _scrollController,
+                controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -112,7 +112,7 @@ class AllSongsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _scrollController.animateTo(
+          scrollController.animateTo(
             0,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,

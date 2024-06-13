@@ -9,7 +9,7 @@ class PlaylistScreen extends StatelessWidget {
       appBar: AppBar(forceMaterialTransparency: true,
         title: const Text(
           'Playlists',
-          style: TextStyle(fontSize:21, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),

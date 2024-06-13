@@ -20,12 +20,10 @@ class SongPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
     
-    double iconSize = Get.width * 0.06; // Adjust the icon size based on screen width
-    double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
-    double artworkHeight = Get.height * 0.52; // Artwork height based on screen height
-    double artworkWidth = Get.width * 1.0; // Artwork width based on screen width
-    double paddingSize = Get.width * 0.02; // Padding size based on screen width
-    
+    double iconSize = Get.width * 0.06; 
+    double fontSize = Get.width * 0.04;
+    double artworkHeight = Get.height * 0.52;
+    double paddingSize = Get.width * 0.02; 
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity != 0) {
@@ -47,9 +45,9 @@ class SongPage extends StatelessWidget {
                 icon: Icon(Icons.more_vert_rounded, size: iconSize)
             )
           ],
-          title: Text(
+          title: const Text(
             "Now Playing",
-            style: TextStyle(fontSize: fontSize * 1.1, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
         ),
         bottomNavigationBar: AdManager.isSecondaryBannerAdLoaded()
@@ -62,23 +60,22 @@ class SongPage extends StatelessWidget {
           child: Obx(
             () => SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: paddingSize),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                padding: const EdgeInsets.only(left: 6,right: 6,top: 30),
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
+                  
                   children: [
-                    SizedBox(width: double.infinity, height: Get.height * 0.038),
+                   
                     Card(
                       margin: EdgeInsets.symmetric(horizontal: paddingSize),
                       elevation: 5,
                       child: QueryArtworkWidget(
                         id: data[controller.playIndex.value].id,
                         type: ArtworkType.AUDIO,
-                        artworkHeight: artworkHeight,
+                        artworkHeight: Get.height *0.52,
                         artworkFit: BoxFit.cover,
                         artworkQuality: FilterQuality.high,
                         artworkBorder: BorderRadius.circular(6),
-                        artworkWidth: artworkWidth,
+                        artworkWidth: double.infinity,
                         quality: 100,
                         nullArtworkWidget: Icon(
                           Icons.music_note_rounded,
@@ -86,7 +83,7 @@ class SongPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: Get.height * 0.0039),
+            
                     ListTile(
                       leading: IconButton(
                           onPressed: () {},
