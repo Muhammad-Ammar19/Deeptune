@@ -29,7 +29,7 @@ class RecentDownloaded extends StatelessWidget {
               ))],
         title: const Text(
           "Recent Downloads",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
         ),
       ),
       body: FutureBuilder<List<SongModel>>(

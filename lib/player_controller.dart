@@ -36,7 +36,6 @@ class PlayerController extends GetxController {
    initAudioPlayerListeners(); 
    loadFavoriteSongs();
    loadRecentlyPlayedSongs(); 
-
   }
 
  // Method to save favorite songs to local storage
