@@ -36,7 +36,9 @@ class PlayerController extends GetxController {
    initAudioPlayerListeners(); 
    loadFavoriteSongs();
    loadRecentlyPlayedSongs(); 
+
   }
+
  // Method to save favorite songs to local storage
   Future<void> saveFavoriteSongs() async {
     final prefs = await SharedPreferences.getInstance();
