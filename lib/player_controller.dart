@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -18,16 +20,21 @@ class PlayerController extends GetxController {
   var position = ''.obs;
   final searchResults = <SongModel>[].obs;
   final recentlyPlayedSongs = <SongModel>[].obs;
-  var favoriteSongs = <SongModel>[].obs; // List to store favorite songs
+  var favoriteSongs = <SongModel>[].obs; 
   var isLooping = false.obs;
   var isShuffling = false.obs;
   var isRepeating = false.obs;
+  final playCounts = <int, int>{}.obs;
 
 
   void updateSelectedSong(SongModel data) {
     // song changed to data
     selectedSong.value = data;
   }
+void onSongSelected(SongModel newSong) {
+  final controller = Get.find<PlayerController>();
+  controller.updateSelectedSong(newSong);
+}
 
   @override
   void onInit() {
@@ -36,8 +43,35 @@ class PlayerController extends GetxController {
    initAudioPlayerListeners(); 
    loadFavoriteSongs();
    loadRecentlyPlayedSongs(); 
+   loadPlayCounts(); 
+  }
+ Future<void> loadSongs() async {
+    var songs = await audioquery.querySongs(
+      sortType: SongSortType.TITLE,
+      uriType: UriType.EXTERNAL,
+    );
+    searchResults.assignAll(songs);
   }
 
+  void incrementPlayCount(SongModel song) {
+    playCounts[song.id] = (playCounts[song.id] ?? 0) + 1;
+    savePlayCounts();
+  }
+
+  Future<void> savePlayCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final playCountsMap = playCounts.map((key, value) => MapEntry(key.toString(), value));
+    prefs.setString('playCounts', jsonEncode(playCountsMap));
+  }
+
+  Future<void> loadPlayCounts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final playCountsString = prefs.getString('playCounts');
+    if (playCountsString != null) {
+      final playCountsMap = Map<int, int>.from(jsonDecode(playCountsString).map((key, value) => MapEntry(int.parse(key), value)));
+      playCounts.assignAll(playCountsMap);
+    }
+  }
  // Method to save favorite songs to local storage
   Future<void> saveFavoriteSongs() async {
     final prefs = await SharedPreferences.getInstance();
@@ -121,6 +155,7 @@ class PlayerController extends GetxController {
       audioPlayer.play();
       isPlaying.value = true;
       updateSelectedSong(searchResults[index]);
+       incrementPlayCount(searchResults[index]);
       // Check if the song is already in the recently played list
       bool alreadyPlayed =
           recentlyPlayedSongs.any((song) => song.id == searchResults[index].id);
@@ -133,8 +168,8 @@ class PlayerController extends GetxController {
         if (recentlyPlayedSongs.length > 100) {
           recentlyPlayedSongs.removeLast();
         }
- saveRecentlyPlayedSongs(); // Save the recently played songs to local storage
-        // Save the recently played songs to local storage
+        saveRecentlyPlayedSongs(); // Save the recently played songs to local storage
+       
       }
     } catch (e) {
       // Handle error
@@ -274,7 +309,8 @@ class PlayerController extends GetxController {
 
   @override
   void onClose() {
-    audioPlayer.dispose(); // Clean up resources when controller is closed
+    audioPlayer.dispose();
+    savePlayCounts();  
     super.onClose();
   }
 

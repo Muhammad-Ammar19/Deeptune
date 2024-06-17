@@ -13,6 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
   AdManager.init();
+  AdManager.showAppOpenAd();
   Get.put(PlayerController());
   await _requestPermission();
   SystemChrome.setPreferredOrientations(
@@ -21,7 +22,7 @@ void main() async {
     enabled: !const bool.fromEnvironment('dart.vm.product'),
     builder: (context) => const MyApp(),
   )); // Show app open ad when the app opens
-  AdManager.showAppOpenAd();
+ 
 }
 
 

@@ -1,6 +1,7 @@
 import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/all_songs_page.dart';
 import 'package:deeptune_musicplayer/favourites.dart';
+import 'package:deeptune_musicplayer/most_played.dart';
 import 'package:deeptune_musicplayer/player_controller.dart';
 import 'package:deeptune_musicplayer/playlist_screen.dart';
 import 'package:deeptune_musicplayer/recent_downloads.dart';
@@ -87,8 +88,8 @@ class GridViewPage extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        // Get.to(() =>  MostPlayedPage(),
-                        //     transition: Transition.fadeIn);
+                        Get.to(() =>  const MostPlayedPage(),
+                            transition: Transition.fadeIn);
                       },
                       icon: Icon(
                         Icons.headphones_rounded,

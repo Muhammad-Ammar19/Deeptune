@@ -60,7 +60,7 @@ class SongPage extends StatelessWidget {
           child: Obx(
             () => SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 6,right: 6,top: 30),
+                padding: const EdgeInsets.only(left: 6,right: 6,top: 20),
                 child: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
                   
                   children: [
