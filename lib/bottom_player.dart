@@ -15,7 +15,7 @@ class BottomMusicPlayer extends StatelessWidget {
         Get.width * 0.035; // Adjust the font size based on screen width
     return GestureDetector(
       onTap: () {
-        // Get.to(() => BottomMusicPlayerPage(), transition: Transition.fadeIn);
+        
         showModalBottomSheet(
           elevation: 4,
           context: context,
@@ -93,7 +93,7 @@ class BottomMusicPlayer extends StatelessWidget {
                               .clamp(0.0, 1.0),
                           backgroundColor: Colors.transparent,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.deepPurple.shade200),
+                              Colors.deepPurple.shade300),
                         ),
                       ),
                     ],
