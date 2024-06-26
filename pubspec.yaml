@@ -44,7 +44,7 @@ dependencies:
   google_mobile_ads: ^4.0.0
   shared_preferences: ^2.2.3
   device_preview: ^1.2.0
-  awesome_notifications: ^0.9.3+1
+  audio_service: ^0.18.0
 
 
 
