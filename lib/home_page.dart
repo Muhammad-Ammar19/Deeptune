@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: paddingValue),
                 child: SizedBox(
                   width: double.infinity,
-                  height: Get.height * 0.2,
+                  height: Get.height * 0.17,
                   child: DropShadowImage(
                     image: Image.asset(
                       "assets/images/cover.jpg",
@@ -163,7 +163,7 @@ class CustomDrawer extends StatelessWidget {
 
     return Drawer(
       elevation: 5,
-      width: Get.width * 0.8,
+       width: Get.width *0.85,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -269,24 +269,10 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                Get.defaultDialog(
-                  titleStyle: TextStyle(fontSize: fontSize * 1.5, fontWeight: FontWeight.bold),
-                  middleText: 'Want to support the developers?\nYou can support the developers by watching the ad.',
-                  confirm: Text(
-                    "Sure",
-                    style: TextStyle(color: Colors.green, fontSize: fontSize),
-                  ),
-                  radius: 10,
-                  title: "Support Developers",
-                  cancel: Text(
-                    "No, Thanks",
-                    style: TextStyle(color: Colors.redAccent, fontSize: fontSize),
-                  ),
-                  titlePadding: const EdgeInsets.all(10),
-                );
+                
               },
               title: Text(
-                "Support the Developers",
+                "Rate us",
                 style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
               leading: Icon(
