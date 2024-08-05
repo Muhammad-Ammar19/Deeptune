@@ -27,9 +27,9 @@ class PlayerController extends GetxController {
   final playCounts = <int, int>{}.obs;
 
 
-  void updateSelectedSong(SongModel data) {
+  void updateSelectedSong(SongModel song) {
     // song changed to data
-    selectedSong.value = data;
+    selectedSong.value = song;
   }
 void onSongSelected(SongModel newSong) {
   final controller = Get.find<PlayerController>();
@@ -42,8 +42,9 @@ void onSongSelected(SongModel newSong) {
     // checkPermission();
    initAudioPlayerListeners(); 
    loadFavoriteSongs();
-   loadRecentlyPlayedSongs(); 
    loadPlayCounts(); 
+   loadRecentlyPlayedSongs(); 
+   
   }
  Future<void> loadSongs() async {
     var songs = await audioquery.querySongs(
@@ -343,12 +344,12 @@ void onSongSelected(SongModel newSong) {
    void toggleLoop() {
     if (isLooping.value) {
       isLooping(false);
-      Get.snackbar('Loop', 'Loop Off');
+      Get.snackbar('Order', 'Order Off');
     } else {
       isLooping(true);
       isShuffling(false);
       isRepeating(false);
-      Get.snackbar('Loop', 'Loop On');
+      Get.snackbar('Order', 'Order On');
     }
   }
 

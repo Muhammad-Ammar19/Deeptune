@@ -70,9 +70,9 @@ class RecentPage extends StatelessWidget {
                       style: const TextStyle(fontSize: 11),
                     ),
                     onTap: () {
-                      // Play the tapped song
+                      
                       controller.playSong(song.uri, index);
-                      // Navigate to the song page
+                     
                       Get.to(
                           () => SongPage(data: controller.recentlyPlayedSongs),
                           transition: Transition.fadeIn);

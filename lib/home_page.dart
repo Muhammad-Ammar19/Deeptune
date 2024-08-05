@@ -18,9 +18,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double paddingValue = Get.width * 0.03;
-    double titleFontSize = Get.width * 0.06;
-    double subtitleFontSize = Get.width * 0.034;
+    
+    double titleFontSize = 25;
+    double subtitleFontSize = 15;
 
     return SafeArea(
       child: Scaffold(
@@ -33,17 +33,17 @@ class HomePage extends StatelessWidget {
                   Get.to(() =>  SearchList(), transition: Transition.fadeIn);
                 },
                 child: Padding(
-                  padding: EdgeInsets.only(right: paddingValue),
+                  padding: const EdgeInsets.only(right: 10),
                   child: Icon(
                     Icons.search,
                     size: Get.width * 0.06,
                   ),
                 )),
           ],
-          title: Text(
+          title: const Text(
             "Deeptune",
             style: TextStyle(
-              fontSize: Get.width * 0.05,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: paddingValue),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SizedBox(
                   width: double.infinity,
                   height: Get.height * 0.17,
@@ -77,8 +77,8 @@ class HomePage extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(
                   top: Get.height * 0.02,
-                  left: paddingValue,
-                  right: paddingValue,
+                  left: 10,
+                  right:10,
                   bottom: Get.height * 0.01,
                 ),
                 child: Row(
@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
               const RecentlyPlayed(), // New Page for recently played
 
               Container(
-                margin: EdgeInsets.symmetric(horizontal: paddingValue),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -143,7 +143,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
 
-              const SongListView(), // Shows Song List in HomePage
+              const SongListView(), 
             ],
           ),
         ),
@@ -157,19 +157,19 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconSize = Get.width * 0.04; // Adjust this as needed
-    double fontSize = Get.width * 0.032; // Adjust this as needed
-    double titleFontSize = Get.width * 0.06; // Adjust this as needed
+    double iconSize = 17; 
+    double fontSize = 14; 
+    double titleFontSize =28; 
 
     return Drawer(
       elevation: 5,
-       width: Get.width *0.85,
+       width: Get.width *0.80,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: Get.height * 0.08),
+            SizedBox(height: Get.height * 0.09),
             Text(
               "Settings",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: titleFontSize),
@@ -190,7 +190,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: iconSize * 0.75,
+                size: iconSize,
               ),
               dense: true,
             ),
@@ -198,6 +198,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () async {
                 await ThemePreference.setTheme(true);
                 Get.changeThemeMode(ThemeMode.dark);
+                AdManager.showRewardedAd();
               },
               title: Text(
                 "Dark mode",
@@ -209,13 +210,17 @@ class CustomDrawer extends StatelessWidget {
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: iconSize * 0.75,
+                size: iconSize,
               ),
               dense: true,
             ),
             ListTile(
               onTap: () {
-                AdManager.showRewardedAd();
+                Get.defaultDialog(
+                  title: 'Chromecast',
+                  middleText: 'This feature is in works.',
+                  radius: 10,
+                );
               },
               title: Text(
                 "Chrome Cast",
@@ -227,7 +232,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: iconSize * 0.75,
+                size: iconSize,
               ),
               dense: true,
             ),
@@ -245,7 +250,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: iconSize * 0.75,
+                size: iconSize,
               ),
               dense: true,
             ),
@@ -263,7 +268,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: iconSize * 0.75,
+                size: iconSize,
               ),
               dense: true,
             ),
@@ -283,7 +288,7 @@ class CustomDrawer extends StatelessWidget {
               iconColor: Colors.greenAccent,
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                size: iconSize * 0.75,
+                size: iconSize,
               ),
             ),
             ListTile(
@@ -304,13 +309,13 @@ class CustomDrawer extends StatelessWidget {
               ),
               dense: true,
             ),
-            AboutDialog(
+            const AboutDialog(
               applicationIcon: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
                 child: Image(
-                  image: const AssetImage("assets/images/ryze_logo.png"),
-                  height: Get.height * 0.06,
-                  width: Get.width * 0.13,
+                  image: AssetImage("assets/images/ryze_logo.png"),
+                  height: 48,
+                  width: 52,
                   fit: BoxFit.cover,
                   filterQuality: FilterQuality.high,
                 ),

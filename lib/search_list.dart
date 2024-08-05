@@ -27,10 +27,10 @@ class SearchList extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: TextField(
                 onChanged: (query) async {
-                  // Trigger search when text changes
+                  
                   List<SongModel> filteredSongs =
                       await controller.searchSongs(query);
-                  // Update UI with filtered songs
+                 
                   controller.updateSearchResults(filteredSongs);
                 },
                 decoration: const InputDecoration(
@@ -96,20 +96,20 @@ class SearchList extends StatelessWidget {
                               ),
                             ],
                             onSelected: (String value) {
-                              // Perform action based on selected value
+                             
                               switch (value) {
                                 case 'edit':
-                                  // Handle edit action
+                                  
                                   break;
                                 case 'delete':
                                   controller
-                                      .deleteSong(song); // Handle delete action
+                                      .deleteSong(song); 
                                   break;
                                 case 'addToFav':
-                                  // Handle add to favorites action
+                                  
                                   break;
                                 default:
-                                  // Handle default case
+                                 
                                   break;
                               }
                             },
@@ -126,11 +126,11 @@ class SearchList extends StatelessWidget {
                             style: const TextStyle(fontSize: 11),
                           ),
                           onTap: () {
-                            // Play the selected song
+                            
                             controller.playSong(song.uri, index);
-                            // Update selected song in the controller
+                           
                             controller.updateSelectedSong(song);
-                            // Navigate to SongPage
+                           
                             Get.to(() => SongPage(data: searchResults),
                                 transition: Transition.fadeIn);
                           },

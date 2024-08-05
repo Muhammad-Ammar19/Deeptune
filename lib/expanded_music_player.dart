@@ -12,16 +12,14 @@ class ExpandedMusicPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<PlayerController>();
-    double paddingSize = Get.width * 0.04; // Padding size based on screen width
-    double fontSize =
-        Get.width * 0.04; // Adjust the font size based on screen width
-    double iconSize = Get.width * 0.060;
-    double iconSizep =
-        Get.width * 0.1; // Adjust the icon size based on screen width
-    double nullIcon = Get.width * 0.52;
+
+    double fontSize = 18;
+    double iconSize = 25;
+    double iconSizep = 35;
+    double nullIcon = 200;
 
     return Padding(
-      padding: EdgeInsets.all(paddingSize),
+      padding: const EdgeInsets.all(20),
       child: Obx(() {
         SongModel? currentSong = controller.selectedSong.value;
         bool isPlaying = controller.isPlaying.value;
@@ -40,7 +38,7 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 id: currentSong.id,
                 type: ArtworkType.AUDIO,
                 artworkHeight: Get.height * 0.25,
-                artworkWidth: Get.height * 0.25,
+                artworkWidth: Get.width * 0.5,
                 artworkBorder: BorderRadius.circular(10),
                 nullArtworkWidget: Icon(
                   Icons.music_note_rounded,
@@ -48,21 +46,19 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: Get.height * 0.01),
             Text(
               currentSong.title,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize),
               maxLines: 1,
-              overflow: TextOverflow.ellipsis, // Prevent overflow
+              overflow: TextOverflow.ellipsis,
             ),
             Text(
               currentSong.artist ?? 'Unknown Artist',
               style: TextStyle(color: Colors.grey, fontSize: fontSize),
               maxLines: 1,
-              overflow: TextOverflow.ellipsis, // Prevent overflow
+              overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: Get.height * 0.005),
-
+         
             Slider(
               min: 0,
               max: controller.max.value.toDouble(),
@@ -72,15 +68,6 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 controller.changeDurationToSeconds(newValue.toInt());
               },
             ),
-
-            // Slider(
-            //   min: 0.0,
-            //   max: controller.max.value,
-            //   value: controller.value.value,
-            //   onChanged: (value) {
-            //     controller.changeDurationToSeconds(value.toInt());
-            //   },
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -88,8 +75,6 @@ class ExpandedMusicPlayer extends StatelessWidget {
                 Text(controller.duration.value),
               ],
             ),
-            //   SizedBox(height: Get.height * 0.005), // Add some spacing
-
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -112,14 +97,13 @@ class ExpandedMusicPlayer extends StatelessWidget {
                     },
                     icon: Obx(() {
                       if (controller.isLooping.value) {
-                        return Icon(Icons.loop_rounded, size: iconSize);
+                        return Icon(Icons.double_arrow_rounded, size: iconSize);
                       } else if (controller.isShuffling.value) {
                         return Icon(Icons.shuffle_rounded, size: iconSize);
                       } else if (controller.isRepeating.value) {
                         return Icon(Icons.repeat_rounded, size: iconSize);
                       } else {
-                        return Icon(Icons.loop_rounded,
-                            size: iconSize); // Default to loop icon
+                        return Icon(Icons.loop_rounded, size: iconSize);
                       }
                     }),
                   ),
@@ -180,4 +164,3 @@ class ExpandedMusicPlayer extends StatelessWidget {
     );
   }
 }
-

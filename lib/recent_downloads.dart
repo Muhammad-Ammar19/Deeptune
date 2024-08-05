@@ -51,7 +51,7 @@ class RecentDownloaded extends StatelessWidget {
             return Scrollbar(
               thickness: 8,
               trackVisibility: true,
-              interactive: true, // Enable interactive scrollbar
+              interactive: true, 
               controller: _scrollController,
               child: ListView.builder(
                 controller: _scrollController,
@@ -123,7 +123,7 @@ class RecentDownloaded extends StatelessWidget {
       sortType: SongSortType.DATE_ADDED,
       uriType: UriType.EXTERNAL,
     );
-    songs = songs.reversed.toList(); // Reverse the list to show most recent downloads first
+    songs = songs.reversed.toList(); 
     return songs;
   }
 }

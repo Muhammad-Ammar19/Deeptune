@@ -11,20 +11,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize Mobile Ads
   await MobileAds.instance.initialize();
   AdManager.init();
-  AdManager.showAppOpenAd();
+
+  // Initialize the PlayerController and request permissions
   Get.put(PlayerController());
   await _requestPermission();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(DevicePreview(
-    enabled: !const bool.fromEnvironment('dart.vm.product'),
-    builder: (context) => const MyApp(),
-  )); // Show app open ad when the app opens
- 
-}
 
+  // Set preferred orientations
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp, 
+    DeviceOrientation.portraitDown
+  ]);
+
+  // Run the app
+  runApp(
+    DevicePreview(
+      enabled: !const bool.fromEnvironment('dart.vm.product'),
+      builder: (context) => const MyApp(),
+    ),
+  );
+
+  // Optionally show app open ad after the app is ready
+  AdManager.showAppOpenAd();
+}
 
 Future<void> _requestPermission() async {
   PermissionStatus status;
@@ -32,7 +44,7 @@ Future<void> _requestPermission() async {
     status = await Permission.storage.request();
   } while (!status.isGranted);
 
-  // Permission is granted. You can proceed with accessing storage.
+  // Permission granted, proceed with storage access
 }
 
 class ThemePreference {
@@ -48,6 +60,7 @@ class ThemePreference {
     return prefs.getBool(_keyIsDarkMode) ?? false;
   }
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

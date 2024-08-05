@@ -16,7 +16,7 @@ class RecentlyPlayed extends StatelessWidget {
       child: Obx(
         () {
           if (controller.recentlyPlayedSongs.isEmpty) {
-            // If no recently played songs, show music note icon
+            
             return const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Icon(
@@ -25,19 +25,19 @@ class RecentlyPlayed extends StatelessWidget {
               ),
             );
           } else {
-            // Show recently played songs
+            
             return ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: controller.recentlyPlayedSongs.length > 4
                   ? 4
                   : controller
-                      .recentlyPlayedSongs.length, // Limit to 4 recent songs
+                      .recentlyPlayedSongs.length, 
               itemBuilder: (context, index) {
                 var song = controller.recentlyPlayedSongs[index];
                 return GestureDetector(
                   onTap: () {
-                    // Play the tapped song
-                    controller.updateSelectedSong(song); // Ensure this is called
+                    
+                    controller.updateSelectedSong(song); 
                     controller.playSong(song.uri, index);
                   },
                   child: Padding(
