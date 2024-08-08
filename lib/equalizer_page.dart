@@ -5,12 +5,12 @@ class EqualizerPage extends StatefulWidget {
   const EqualizerPage({Key? key}) : super(key: key);
 
   @override
-  _EqualizerPageState createState() => _EqualizerPageState();
+  EqualizerPageState createState() => EqualizerPageState();
 }
 
-class _EqualizerPageState extends State<EqualizerPage> {
-  // List to store band values for the equalizer sliders
-  List<double> bandValues = List.filled(5, 0.0); // Assuming 5 bands
+class EqualizerPageState extends State<EqualizerPage> {
+ 
+  List<double> bandValues = List.filled(5, 0.0); 
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _EqualizerPageState extends State<EqualizerPage> {
         actions: [
           IconButton(
             onPressed: () {
-              // Handle overflow menu action
+             
             },
             icon: const Icon(Icons.more_vert_sharp),
           )
@@ -43,7 +43,7 @@ class _EqualizerPageState extends State<EqualizerPage> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  // Equalizer sliders
+                 
                   for (int i = 0; i < bandValues.length; i++)
                     EqualizerSlider(
                       bandId: i,
@@ -54,11 +54,10 @@ class _EqualizerPageState extends State<EqualizerPage> {
                         });
                       },
                     ),
-                  // Button to apply equalizer settings
+                  
                   ElevatedButton(
                     onPressed: () {
-                      // Apply equalizer settings using bandValues
-                      // This is where you would integrate with your audio player
+                    
                     },
                     child: const Text('Apply Equalizer Settings'),
                   ),

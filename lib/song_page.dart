@@ -21,7 +21,7 @@ class SongPage extends StatelessWidget {
     var controller = Get.find<PlayerController>();
 
     double iconSize = 25.0;
-    double fontSize = 18;
+    double fontSize = 16;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Actions to perform after layout
@@ -77,8 +77,9 @@ class SongPage extends StatelessWidget {
                   children: [
                     LayoutBuilder(
                       builder: (context, constraints) {
-                        double artworkSize = min(
-                            constraints.maxWidth, constraints.maxHeight * 0.6);
+                        double maxWidth = constraints.maxWidth;
+                        double maxHeight = constraints.maxHeight;
+                         double artworkSize = min(maxWidth, maxHeight * 0.6);
                         return Card(
                           elevation: 5,
                           child: QueryArtworkWidget(
@@ -182,7 +183,7 @@ class SongPage extends StatelessWidget {
                               return Icon(Icons.repeat_rounded, size: iconSize);
                             } else {
                               return Icon(
-                                  Icons.keyboard_double_arrow_right_rounded,
+                                  Icons.double_arrow_rounded,
                                   size: iconSize); // Default to loop icon
                             }
                           }),
