@@ -32,19 +32,19 @@ class AdManager {
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          print('Banner ad loaded');
+         
         },
         onAdFailedToLoad: (ad, error) {
-          print('Banner ad failed to load: $error');
+         
           ad.dispose();
           _bannerAd = null;
         },
         onAdOpened: (ad) {
-          print('Banner ad opened');
+         
         },
         onAdClosed: (ad) {
-          print('Banner ad closed');
-          _loadBannerAd(); // Load another ad after the previous one is closed
+         
+          _loadBannerAd(); 
         },
       ),
     );
@@ -58,19 +58,19 @@ class AdManager {
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          print('Secondary banner ad loaded');
+          
         },
         onAdFailedToLoad: (ad, error) {
-          print('Secondary banner ad failed to load: $error');
+        
           ad.dispose();
           _secondaryBannerAd = null;
         },
         onAdOpened: (ad) {
-          print('Secondary banner ad opened');
+        
         },
         onAdClosed: (ad) {
-          print('Secondary banner ad closed');
-          _loadSecondaryBannerAd(); // Load another ad after the previous one is closed
+        
+          _loadSecondaryBannerAd(); 
         },
       ),
     );
@@ -83,11 +83,11 @@ class AdManager {
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
-          print('Interstitial ad loaded');
+         
           _interstitialAd = ad;
         },
         onAdFailedToLoad: (error) {
-          print('Interstitial ad failed to load: $error');
+       
         },
       ),
     );
@@ -99,11 +99,11 @@ class AdManager {
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
-          print('Rewarded ad loaded');
+        
           _rewardedAd = ad;
         },
         onAdFailedToLoad: (error) {
-          print('Rewarded ad failed to load: $error');
+         
         },
       ),
     );
@@ -115,25 +115,25 @@ class AdManager {
       request: const AdRequest(),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
-          print('App open ad loaded');
+        
           _appOpenAd = ad;
         },
         onAdFailedToLoad: (error) {
-          print('App open ad failed to load: $error');
+         
         },
       ),
-      orientation: AppOpenAd.orientationPortrait,
+     
     );
   }
 
   static void showAppOpenAd() async {
     if (_appOpenAd != null) {
       await _appOpenAd!.show();
-      _appOpenAd = null; // Reset the ad to ensure it doesn't show again
-      _loadAppOpenAd(); // Load another ad for the next app open event
+      _appOpenAd = null; 
+      _loadAppOpenAd(); 
     } else {
-      print('App open ad is not ready yet');
-      _loadAppOpenAd(); // Load the app open ad if it's not initialized
+     
+      _loadAppOpenAd();
     }
   }
 
@@ -179,8 +179,8 @@ class AdManager {
     if (_interstitialAd != null) {
       await _interstitialAd!.show();
     } else {
-      print('Interstitial ad is not ready yet');
-      _loadInterstitialAd(); // Load the interstitial ad if it's not initialized
+     
+      _loadInterstitialAd(); 
     }
   }
 
@@ -189,16 +189,16 @@ class AdManager {
       try {
         await _rewardedAd!.show(
           onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
-            // Handle reward logic here
+          
           },
         );
       } catch (e) {
-        print('Failed to show rewarded ad: $e');
-        _loadRewardedAd(); // Load another rewarded ad if the current one fails
+      
+        _loadRewardedAd(); 
       }
     } else {
-      print('Rewarded ad is not ready yet');
-      _loadRewardedAd(); // Load the rewarded ad if it's not initialized
+    
+      _loadRewardedAd(); 
     }
   }
 }
