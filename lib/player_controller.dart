@@ -13,8 +13,8 @@ class PlayerController extends GetxController {
   final audioPlayer = AudioPlayer();
   final Rx<SongModel?> selectedSong = Rx<SongModel?>(null);
   var isPlaying = false.obs;
-  var max = 0.0.obs; // Change to double
-  var value = 0.0.obs; // Change to double
+  var max = 0.0.obs; 
+  var value = 0.0.obs; 
   var playIndex = 0.obs;
   var duration = ''.obs;
   var position = ''.obs;
@@ -28,7 +28,7 @@ class PlayerController extends GetxController {
 
 
   void updateSelectedSong(SongModel song) {
-    // song changed to data
+    
     selectedSong.value = song;
   }
 void onSongSelected(SongModel newSong) {
@@ -73,14 +73,14 @@ void onSongSelected(SongModel newSong) {
       playCounts.assignAll(playCountsMap);
     }
   }
- // Method to save favorite songs to local storage
+ 
   Future<void> saveFavoriteSongs() async {
     final prefs = await SharedPreferences.getInstance();
     final songIds = favoriteSongs.map((song) => song.id).toList();
     prefs.setStringList('favoriteSongs', songIds.map((id) => id.toString()).toList());
   }
 
-  // Method to load favorite songs from local storage
+
   Future<void> loadFavoriteSongs() async {
     final prefs = await SharedPreferences.getInstance();
     final songIds = prefs.getStringList('favoriteSongs');
@@ -93,28 +93,28 @@ void onSongSelected(SongModel newSong) {
     }
   }
 
-// Rewind Code
+
   void rewind(int seconds) {
     final currentPosition = audioPlayer.position;
     final newPosition = currentPosition - Duration(seconds: seconds);
 
-    // Ensure newPosition is not negative
+    
     if (newPosition.isNegative) {
-      audioPlayer.seek(Duration.zero); // Seek to the beginning
+      audioPlayer.seek(Duration.zero); 
     } else {
       audioPlayer.seek(newPosition);
     }
   }
 
-// FastForward Code
+
   void fastForward(int seconds) {
     final currentPosition = audioPlayer.position;
     final newPosition = currentPosition + Duration(seconds: seconds);
     final totalDuration = audioPlayer.duration ?? Duration.zero;
 
-    // Ensure newPosition is not greater than total duration
+   
     if (newPosition >= totalDuration) {
-      audioPlayer.seek(totalDuration); // Seek to the end
+      audioPlayer.seek(totalDuration); 
     } else {
       audioPlayer.seek(newPosition);
     }
@@ -148,32 +148,32 @@ void onSongSelected(SongModel newSong) {
 
   void playSong(String? uri, int index) {
     try {
-      // Set the index of the currently playing song
+      
       playIndex.value = index;
 
-      // Set the audio source and play the song
+      
       audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
       audioPlayer.play();
       isPlaying.value = true;
       updateSelectedSong(searchResults[index]);
        incrementPlayCount(searchResults[index]);
-      // Check if the song is already in the recently played list
+     
       bool alreadyPlayed =
           recentlyPlayedSongs.any((song) => song.id == searchResults[index].id);
 
-      // Add the played song to the list of recently played songs if not already present
+     
       if (!alreadyPlayed) {
         recentlyPlayedSongs.insert(0, searchResults[index]);
 
-        // Limit the recently played songs list to 100 items
+      
         if (recentlyPlayedSongs.length > 100) {
           recentlyPlayedSongs.removeLast();
         }
-        saveRecentlyPlayedSongs(); // Save the recently played songs to local storage
+        saveRecentlyPlayedSongs();
        
       }
     } catch (e) {
-      // Handle error
+      
     }
   }
 
@@ -182,7 +182,7 @@ void onSongSelected(SongModel newSong) {
     if (currentIndex < searchResults.length - 1) {
       playSong(searchResults[currentIndex + 1].uri, currentIndex + 1);
     } else {
-      // Optionally handle end of songs
+     
       stopSong();
     }
   }
@@ -192,7 +192,7 @@ void onSongSelected(SongModel newSong) {
     isPlaying.value = false;
   }
 
-  // Play Pause
+ 
   void togglePlayPause() {
     if (audioPlayer.playing) {
       audioPlayer.pause();
@@ -211,7 +211,7 @@ void onSongSelected(SongModel newSong) {
     isPlaying.value = true;
   }
 
-  // Search function to filter songs based on a search query
+  
   Future<List<SongModel>> searchSongs(String query) async {
     try {
       var songs = await audioquery.querySongs(
@@ -223,7 +223,7 @@ void onSongSelected(SongModel newSong) {
         return songs;
       }
 
-// Filter songs based on the search query (case-insensitive)
+
       var filteredSongs = songs.where((song) {
         return song.title.toLowerCase().contains(query.toLowerCase());
       }).toList();
@@ -234,12 +234,12 @@ void onSongSelected(SongModel newSong) {
     }
   }
 
-  // Update search results with filtered songs
+ 
   void updateSearchResults(List<SongModel> results) {
     searchResults.assignAll(results);
   }
 
-// For starting and ending time duration
+
   void updatedPosition() {
     audioPlayer.durationStream.listen((d) {
       if (d != null) {
@@ -259,14 +259,14 @@ void onSongSelected(SongModel newSong) {
       final seconds = (positionInSeconds % 60).toString().padLeft(2, '0');
       position.value = '$minutes:$seconds';
 
-      // Clamp positionValue to be within the valid range [0.0, max.value]
+     
       final clampedValue = positionValue.clamp(0.0, max.value);
       value.value = clampedValue;
     });
   }
 
   void deleteSong(SongModel song) {
-    // Ask for confirmation before deleting
+  
     showDialog(
       context: Get.context!,
       builder: (context) => AlertDialog(
@@ -278,21 +278,20 @@ void onSongSelected(SongModel newSong) {
         actions: [
           TextButton(
             onPressed: () {
-              // Dismiss the dialog
+             
               Navigator.of(context).pop();
             },
             child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
-              // Remove the song from the list
+            
               searchResults.remove(song);
-              // You may need to delete from storage as well
-              // Notify the user
+           
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Song deleted')),
               );
-              // Dismiss the dialog
+             
               Navigator.of(context).pop();
             },
             child: const Text('Delete'),
@@ -302,7 +301,7 @@ void onSongSelected(SongModel newSong) {
     );
   }
 
-//  for slider seeking
+
   changeDurationToSeconds(seconds) {
     var duration = Duration(seconds: seconds);
     audioPlayer.seek(duration);
@@ -323,7 +322,7 @@ void onSongSelected(SongModel newSong) {
     }
   }
 
-// Method to toggle favorite status
+
   void toggleFavorite(SongModel song) {
     if (isFavorite(song)) {
       favoriteSongs.remove(song);
@@ -333,10 +332,10 @@ void onSongSelected(SongModel newSong) {
       favoriteSongs.add(song);
 
       Get.snackbar("Added", "${song.displayNameWOExt} added to favorites");
-    }saveFavoriteSongs(); // Save favorite songs whenever the list is updated
+    }saveFavoriteSongs(); 
   }
 
-  // Method to check if a song is favorite
+  
   bool isFavorite(SongModel song) {
     return favoriteSongs.contains(song);
   }
@@ -401,7 +400,7 @@ void playPreviousSong() {
   if (currentIndex > 0) {
     playSong(searchResults[currentIndex - 1].uri, currentIndex - 1);
   } else {
-    // Optionally handle the beginning of the song list
+   
     stopSong();
   }
 }
