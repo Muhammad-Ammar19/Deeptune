@@ -1,6 +1,5 @@
 import 'package:deeptune_musicplayer/ad_controller.dart';
 import 'package:deeptune_musicplayer/all_songs_page.dart';
-import 'package:deeptune_musicplayer/equalizer_page.dart';
 import 'package:deeptune_musicplayer/main.dart';
 import 'package:deeptune_musicplayer/music_library.dart';
 import 'package:deeptune_musicplayer/recent_page.dart';
@@ -237,9 +236,9 @@ class CustomDrawer extends StatelessWidget {
               dense: true,
             ),
             ListTile(
-              onTap: () {
-                Get.to(() => const EqualizerPage(), transition: Transition.fadeIn);
-              },
+              // onTap: () {
+              //   Get.to(() => const EqualizerPage(), transition: Transition.fadeIn);
+              // },
               title: Text(
                 "Equalizer",
                 style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
