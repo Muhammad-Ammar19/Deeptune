@@ -23,16 +23,16 @@ class SongPage extends StatelessWidget {
     double fontSize = 16;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Actions to perform after layout
+    
     });
     return GestureDetector(
       onHorizontalDragEnd: (details) {
         if (details.primaryVelocity != 0) {
           if (details.primaryVelocity! > 0) {
-            // Swipe from left to right (right direction)
+         
             _playPreviousSong(controller);
           } else {
-            // Swipe from right to left (left direction)
+            
             _playNextSong(controller);
           }
         }
@@ -183,13 +183,13 @@ class SongPage extends StatelessWidget {
                             } else {
                               return Icon(
                                   Icons.double_arrow_rounded,
-                                  size: iconSize); // Default to loop icon
+                                  size: iconSize);
                             }
                           }),
                         ),
                         IconButton(
                             onPressed: () {
-                              controller.rewind(10); // Rewind button
+                              controller.rewind(10); 
                             },
                             icon:
                                 Icon(Icons.replay_10_rounded, size: iconSize)),
@@ -202,14 +202,14 @@ class SongPage extends StatelessWidget {
                             controller.playSong(data[prevIndex].uri, prevIndex);
                           },
                           icon: Icon(
-                            Icons.skip_previous_rounded, // Previous Button
+                            Icons.skip_previous_rounded, 
                             size: iconSize * 1.25,
                           ),
                         ),
                         IconButton(
                           onPressed: () {
                             if (controller.isPlaying.value) {
-                              //Play/Pause Button
+                             
                               controller.audioPlayer.pause();
                               controller.isPlaying(false);
                             } else {
@@ -222,7 +222,7 @@ class SongPage extends StatelessWidget {
                               controller.isPlaying.value
                                   ? Icons.pause
                                   : Icons
-                                      .play_arrow_rounded, //Play/Pause Button
+                                      .play_arrow_rounded, 
                               size: iconSize * 1.30,
                             ),
                           ),
@@ -236,20 +236,19 @@ class SongPage extends StatelessWidget {
                             controller.playSong(data[nextIndex].uri, nextIndex);
                           },
                           icon: Icon(
-                            Icons.skip_next_rounded, //Next Buttons
+                            Icons.skip_next_rounded, 
                             size: iconSize * 1.4,
                           ),
                         ),
                         IconButton(
                             onPressed: () {
-                              controller.fastForward(10); //Forward Button
+                              controller.fastForward(10); 
                             },
                             icon:
                                 Icon(Icons.forward_10_rounded, size: iconSize)),
                         IconButton(
                           onPressed: () {
-                            // Get.to(() => const EqualizerPage(),
-                            //     transition: Transition.fadeIn);
+                        
                           },
                           icon: Icon(Icons.equalizer_rounded, size: iconSize),
                         ),
