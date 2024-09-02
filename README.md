@@ -9,16 +9,15 @@ DeepTune is a feature-rich music player app built using Flutter. It offers a sea
 🔍 Search Songs: Efficiently search for your desired tracks within the app.
 📤 Share System: Share your favorite songs with friends directly from the app.
 
+
 📸 Screenshots
-
-
 ![Screenshot_20240506-223225](https://github.com/user-attachments/assets/b262b4c5-90e3-4102-bb73-e09c5851edf2)
 ![Screenshot_20240506-223303](https://github.com/user-attachments/assets/1fd2918f-2ed7-483e-8d5b-6fba49ef6fd9)
 ![Screenshot_20240509-092644](https://github.com/user-attachments/assets/ab51d161-102b-4268-8d82-3c91b5b23b67)
 ![deeptune_dark1]![Screenshot_20240527-221448](https://github.com/user-attachments/assets/ad587ec6-764f-4dd2-a0fd-44ebe1faf99c)
-(https://github.com/use![Screenshot_20240527-225003](https://github.com/user-attachments/assets/a2f1038f-e6cb-482f-98da-5d0488d8e6dd)
-r-attachments/assets/ad396a24-f322-456a-bb1f-a2e470dce165)
 ![Screenshot_20240527-223218](https://github.com/user-attachments/assets/b8e49089-953f-4042-8a9b-f063ebdef214)
+![Screenshot_20240527-222119](https://github.com/user-attachments/assets/56c12f9f-62e4-45db-b0f6-023944d959e6)
+
 
 
 
