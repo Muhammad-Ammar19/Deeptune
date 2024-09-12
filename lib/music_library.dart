@@ -22,11 +22,11 @@ class GridViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PlayerController playerController = Get.find<PlayerController>(); // Get the PlayerController instance
+    final PlayerController playerController = Get.find<PlayerController>(); 
     final bannerAdWidget = AdManager.getBannerAdWidget();
 
-    double iconSize = Get.width * 0.1; // Adjust the icon size based on screen width
-    double fontSize = Get.width * 0.04; // Adjust the font size based on screen width
+    double iconSize = Get.width * 0.1;
+    double fontSize = Get.width * 0.04; 
 
     return Scaffold(
       appBar: AppBar(
