@@ -56,5 +56,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 📬 Contact
 If you have any questions or feedback, feel free to reach out:
 
-Email: syedammarzaki4@gmail.com
+Email: syedammarzaki4@gmail.com.
 
